@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavbarDemo from "@/components/resizable-navbar-demo";
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
+
+import  TargetCursor from "@/components/TargetCursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +32,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+       
+      
+        <SmoothCursor />
         <NavbarDemo />
         {children}</body>
     </html>
