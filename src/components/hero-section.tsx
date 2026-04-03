@@ -2,18 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Particles } from './ui/particles';
 import { PixelImage } from './ui/pixel-image';
-import TargetCursor from './TargetCursor';
+
 
 export function HeroSection() {
   return (
     <>
       <div className="overflow-hidden relative">
-      <TargetCursor
-      //       spinDuration={2}
-      //       hideDefaultCursor
-      //       parallaxOn
-      // hoverDuration={0.2}
-    />
+    
  <Particles
         className="absolute inset-0 z-0"
         quantity={1000}

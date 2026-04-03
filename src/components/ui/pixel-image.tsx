@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react"
 
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 type Grid = {
   rows: number
@@ -21,6 +22,7 @@ type PredefinedGridKey = keyof typeof DEFAULT_GRIDS
 
 interface PixelImageProps {
   src: string
+  alt:string,
   grid?: PredefinedGridKey
   customGrid?: Grid
   grayscaleAnimation?: boolean
@@ -31,6 +33,7 @@ interface PixelImageProps {
 
 export const PixelImage = ({
   src,
+  alt,
   grid = "6x4",
   grayscaleAnimation = true,
   pixelFadeInDuration = 1000,
@@ -105,9 +108,9 @@ export const PixelImage = ({
             transitionDuration: `${pixelFadeInDuration}ms`,
           }}
         >
-          <img
+          <Image
             src={src}
-            alt={`Pixel image piece ${index + 1}`}
+            alt={alt}
             className={cn(
               "z-1 rounded-[2.5rem] object-cover",
               grayscaleAnimation && (showColor ? "grayscale-0" : "grayscale")
@@ -117,6 +120,9 @@ export const PixelImage = ({
                 ? `filter ${pixelFadeInDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`
                 : "none",
             }}
+              width={500}
+                  height={500}
+                  priority
             draggable={false}
           />
         </div>

@@ -7,6 +7,7 @@ export default function Home() {
    <>
    <HeroSection />
    <LogoSlider />
+   <div className="h-[1000px]">asf</div>
    </>
   );
 }
