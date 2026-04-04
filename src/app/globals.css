@@ -11,3 +11,8 @@
   --secondary-color: #c0cafc80;
   --primary-hover: #4f46e5;
 }
+/* globals.css */
+
+*{
+  cursor: none !important;
+}

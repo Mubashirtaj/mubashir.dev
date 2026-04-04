@@ -25,7 +25,7 @@ export function LogoSlider() {
           Powering projects with modern technologies
         </p>
 
-        <div className="relative overflow-hidden" style={{ height: '120px' }}>
+        <div className="relative disable-smooth-cursor overflow-hidden" style={{ height: '120px' }}>
           <LogoLoop
             logos={techLogos}
             speed={40} // Thoda slow rakhein taake user dekh sake

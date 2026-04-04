@@ -11,8 +11,8 @@ import {
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
-
-export default function NavbarDemo() {
+ 
+export function NavbarDemo() {
   const navItems = [
     {
       name: "Features",
@@ -27,11 +27,11 @@ export default function NavbarDemo() {
       link: "#contact",
     },
   ];
-
+ 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+ 
   return (
-    <div className="relative w-full">
+    <div className="sticky top-0 z-50 w-full ">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
@@ -39,10 +39,10 @@ export default function NavbarDemo() {
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
             <NavbarButton variant="secondary">Login</NavbarButton>
-            <NavbarButton className="cursor-target" variant="primary">Book a call</NavbarButton>
+            <NavbarButton variant="primary">Book a call</NavbarButton>
           </div>
         </NavBody>
-
+ 
         {/* Mobile Navigation */}
         <MobileNav>
           <MobileNavHeader>
@@ -52,7 +52,7 @@ export default function NavbarDemo() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             />
           </MobileNavHeader>
-
+ 
           <MobileNavMenu
             isOpen={isMobileMenuOpen}
             onClose={() => setIsMobileMenuOpen(false)}
@@ -62,7 +62,7 @@ export default function NavbarDemo() {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-(--text-color)"
+                className="relative text-neutral-600 dark:text-neutral-300"
               >
                 <span className="block">{item.name}</span>
               </a>
@@ -86,8 +86,8 @@ export default function NavbarDemo() {
           </MobileNavMenu>
         </MobileNav>
       </Navbar>
-
+ 
+      {/* Navbar */}
     </div>
   );
 }
-

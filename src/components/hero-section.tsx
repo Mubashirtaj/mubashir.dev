@@ -1,21 +1,27 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Particles } from './ui/particles';
 import { PixelImage } from './ui/pixel-image';
+import Particles from './Particles';
 
 
 export function HeroSection() {
   return (
     <>
       <div className="overflow-hidden relative">
-    
- <Particles
-        className="absolute inset-0 z-0"
-        quantity={1000}
-        ease={80}
-        color={'#4f46e5'}
-        refresh
-      />
+    <div style={{ width: '100%', height: '600px', position: 'absolute' }}>
+  <Particles
+    particleColors={["#4826f2"]}
+    particleCount={200}
+    particleSpread={10}
+    speed={0.1}
+    particleBaseSize={100}
+    moveParticlesOnHover
+    alphaParticles={false}
+    disableRotation={false}
+    pixelRatio={1}
+/>
+</div>
+ 
         <section className="pt-12 bg-gradient-to-b from-gray-50 via-white to-gray-50">
           <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
             <div className="grid max-w-md grid-cols-1 mx-auto lg:grid-cols-12 gap-x-6 gap-y-8 lg:max-w-none">
@@ -28,12 +34,12 @@ export function HeroSection() {
                 <p className="mt-5 text-base font-normal leading-7 text-gray-500">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus.
                 </p>
-                <div className="relative inline-flex mt-9 group">
-                  <div className="absolute transitiona-all duration-1000 opacity-70 inset-0 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200"></div>
+                <div className="disable-smooth-cursor  relative inline-flex mt-9 group">
+                  <div className="disable-smooth-cursor absolute transitiona-all duration-1000 opacity-70 inset-0 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200"></div>
                   <Link
                     href="/blog"
                     title="Read exclusive NFT blog posts"
-                    className="cursor-target relative inline-flex items-center justify-center px-8 py-3 sm:text-sm sm:py-3.5 text-base font-semibold text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                    className="disable-smooth-cursor relative inline-flex items-center justify-center px-8 py-3 sm:text-sm sm:py-3.5 text-base font-semibold text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
                     aria-label="Read exclusive NFT blog content"
                   >
                     Read Exclusive Blog
@@ -50,7 +56,7 @@ export function HeroSection() {
                 <div className="mt-6 space-y-6 lg:space-y-8">
                   {[1, 2, 3].map((item) => (
                     <article key={item} className="relative overflow-hidden">
-                      <div className="flex items-start lg:items-center">
+                      <div className="flex items-start disable-smooth-cursor lg:items-center">
                         <Image
                           className="object-cover w-12 h-12 rounded-lg shrink-0"
                           src={`/thumbnail-${item}.png`}
@@ -80,7 +86,7 @@ export function HeroSection() {
                 <PixelImage
                 //   className="w-full mx-auto"
                   src="/author.png"
-                //   alt="Brian Jones - NFT writer and blockchain expert"
+                  alt="Brian Jones - NFT writer and blockchain expert"
                 //   width={500}
                 //   height={500}
                 //   priority
