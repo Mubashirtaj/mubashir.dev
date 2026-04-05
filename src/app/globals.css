@@ -7,9 +7,9 @@
 :root {
   --bg-color: #f8fafc;
   --text-color: #1e0f35; 
-  --primary-color: #6366f1;   /* accent */
+  --primary-hover: #6366f1;   /* accent */
   --secondary-color: #c0cafc80;
-  --primary-hover: #4f46e5;
+  --primary-color: #4f46e5;
 }
 /* globals.css */
 

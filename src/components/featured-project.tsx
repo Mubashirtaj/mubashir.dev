@@ -9,7 +9,7 @@ import {
   IconTableColumn,
 } from "@tabler/icons-react";
 import { Particles } from "./ui/particles2";
-
+import Image from "next/image";
 export function BentoGridSecondDemo() {
   return (
     <div className="relative overflow-hidden">
@@ -29,7 +29,7 @@ export function BentoGridSecondDemo() {
           description={item.description}
           header={item.header}
           className={cn(
-            "p-4 rounded-xl border border-transparent transition-colors",
+            "p-4 rounded-xl border border-[var(--primary-color)] transition-colors",
             "bg-var(--secondary-color) text-var(--text-color) hover:bg-var(--primary-hover)",
             item.className
           )}
@@ -54,32 +54,66 @@ const Skeleton = () => (
   </div>
 );
 
+
+
 const items = [
   {
     title: "The Dawn of Innovation",
     description: "Explore the birth of groundbreaking ideas and inventions.",
-    header: <Skeleton />,
+    header: (
+      <Image
+        src="https://source.unsplash.com/random/800x400?innovation"
+        alt="Innovation dummy"
+        width={400}
+        height={200}
+        className="rounded-xl object-cover w-full h-full"
+      />
+    ),
     className: "md:col-span-2",
     icon: <IconClipboardCopy className="h-4 w-4 text-[var(--primary-color)]" />,
   },
   {
     title: "The Digital Revolution",
     description: "Dive into the transformative power of technology.",
-    header: <Skeleton />,
+    header: (
+      <Image
+        src="https://source.unsplash.com/random/800x400?technology"
+        alt="Digital dummy"
+        width={400}
+        height={200}
+        className="rounded-xl object-cover w-full h-full"
+      />
+    ),
     className: "md:col-span-1",
     icon: <IconFileBroken className="h-4 w-4 text-[var(--primary-color)]" />,
   },
   {
     title: "The Art of Design",
     description: "Discover the beauty of thoughtful and functional design.",
-    header: <Skeleton />,
+    header: (
+      <Image
+        src="https://source.unsplash.com/random/800x400?design"
+        alt="Design dummy"
+        width={400}
+        height={200}
+        className="rounded-xl object-cover w-full h-full"
+      />
+    ),
     className: "md:col-span-1",
     icon: <IconSignature className="h-4 w-4 text-[var(--primary-color)]" />,
   },
   {
     title: "The Power of Communication",
     description: "Understand the impact of effective communication in our lives.",
-    header: <Skeleton />,
+    header: (
+      <Image
+        src="https://source.unsplash.com/random/800x400?communication"
+        alt="Communication dummy"
+        width={200}
+        height={100}
+        className="rounded-xl object-cover w-full h-full"
+      />
+    ),
     className: "md:col-span-2",
     icon: <IconTableColumn className="h-4 w-4 text-[var(--primary-color)]" />,
   },
