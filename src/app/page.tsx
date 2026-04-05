@@ -1,9 +1,10 @@
 import { BentoGridSecondDemo } from "@/components/featured-project";
+import PortfolioFooter from "@/components/footer";
 import { HeroSection } from "@/components/hero-section";
 import BlogSection from "@/components/latest-blogs";
 import { LogoSlider } from "@/components/logo-slider";
 import { ServiceIDo } from "@/components/service-i-do";
-import ReviewsSection from "@/components/testimonials";
+import GoogleReviewsSection from "@/components/testimonials";
 
 
 export default function Home() {
@@ -14,8 +15,8 @@ export default function Home() {
    <BentoGridSecondDemo />
    <BlogSection />
    <ServiceIDo />
-   <ReviewsSection />
-   <div className="h-[1000px]">asf</div>
+   <GoogleReviewsSection />
+   <PortfolioFooter />
    </>
   );
 }

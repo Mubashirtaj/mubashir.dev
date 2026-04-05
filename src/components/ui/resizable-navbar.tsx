@@ -87,6 +87,98 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       animate={{
+        backdropFilter: visible ? "blur(2px)" : "none",
+        boxShadow: visible
+          ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
+          : "none",
+        width: visible ? "40%" : "100%",
+        y: visible ? 20 : 0,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+      }}
+      style={{
+        minWidth: "800px",
+      }}
+      className={cn(
+        "relative z-[60] mx-auto overflow-hidden hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
+        visible && "bg-white/80 dark:bg-neutral-950/80",
+        className,
+      )}
+    >
+      {/* Animated Border Container */}
+      <div className="absolute inset-0 overflow-hidden rounded-full">
+        {/* Top Border Animation */}
+        <motion.div
+          className="absolute top-0 left-[5%] h-[1.5px] bg-gradient-to-r from-transparent via-blue-500 to-transparent"
+          initial={{ width: "0%", opacity: 0 }}
+          animate={{
+            width: visible ? "90%" : "0%",
+            opacity: visible ? 1 : 0,
+          }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        />
+
+        {/* Bottom Border Animation */}
+        <motion.div
+          className="absolute bottom-0 left-[5%] h-[1.5px] bg-gradient-to-r from-transparent via-purple-500 to-transparent"
+          initial={{ width: "0%", opacity: 0 }}
+          animate={{
+            width: visible ? "90%" : "0%",
+            opacity: visible ? 1 : 0,
+          }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeInOut" }}
+        />
+
+        {/* Glowing Border Effect */}
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          animate={{
+            boxShadow: visible
+              ? "0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.2), inset 0 0 0 1px rgba(99, 102, 241, 0.2)"
+              : "0 0 0px rgba(59, 130, 246, 0)",
+          }}
+          transition={{ duration: 0.4 }}
+        />
+
+        {/* Shimmer Effect */}
+        <motion.div
+          className="absolute inset-0 overflow-hidden rounded-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: visible ? 1 : 0 }}
+        >
+          <motion.div
+            className="absolute inset-0 -translate-x-full"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2), transparent)",
+            }}
+            animate={{
+              x: ["0%", "200%"],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: visible ? Infinity : 0,
+              repeatDelay: 2,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
+      </div>
+
+      {/* Content */}
+      {children}
+    </motion.div>
+  );
+};
+
+
+export const NavBodyWithRotatingBorder = ({ children, className, visible }: NavBodyProps) => {
+  return (
+    <motion.div
+      animate={{
         backdropFilter: visible ? "blur(10px)" : "none",
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
@@ -108,6 +200,39 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         className,
       )}
     >
+      {/* Rotating Gradient Border */}
+      {/* <motion.div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background: "conic-gradient(from 0deg, #3b82f6, #a855f7, #ec4899, #3b82f6)",
+          mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+          maskComposite: "exclude",
+          padding: "0px",
+        }}
+        animate={{
+          rotate: visible ? [0, 360] : 0,
+        }}
+        transition={{
+          duration: 3,
+          repeat: visible ? Infinity : 0,
+          ease: "linear",
+        }}
+      />
+       */}
+      {/* Pulse Effect */}
+      <motion.div
+        className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20"
+        animate={{
+          scale: visible ? [1, 1.02, 1] : 1,
+          opacity: visible ? [0.5, 0.8, 0.5] : 0,
+        }}
+        transition={{
+          duration: 2,
+          repeat: visible ? Infinity : 0,
+          ease: "easeInOut",
+        }}
+      />
+
       {children}
     </motion.div>
   );
@@ -128,7 +253,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-4 py-2 text-(--text-color) hover:text-(--primary-color) dark:text-neutral-300 transition-colors duration-300"
+          className="relative px-4 py-2 text-(--primary-color) hover:text-(--primary-color) dark:text-neutral-300 transition-colors duration-300"
           key={`link-${idx}`}
           href={item.link}
         >

@@ -32,7 +32,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
        
       
-        <SmoothCursor />
+        {/* <SmoothCursor /> */}
         <NavbarDemo />
         {children}</body>
     </html>

@@ -15,15 +15,15 @@ import { useState } from "react";
 export function NavbarDemo() {
   const navItems = [
     {
-      name: "Features",
+      name: "Home",
       link: "#features",
     },
     {
-      name: "Pricing",
+      name: "About",
       link: "#pricing",
     },
     {
-      name: "Contact",
+      name: "Blog",
       link: "#contact",
     },
   ];
@@ -34,7 +34,7 @@ export function NavbarDemo() {
     <div className="sticky top-0 z-50 w-full ">
       <Navbar>
         {/* Desktop Navigation */}
-        <NavBody>
+        <NavBody className="overflow-hidden">
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
