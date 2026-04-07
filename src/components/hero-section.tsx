@@ -29,7 +29,7 @@ export function HeroSection() {
               {/* Main Content - Semantic HTML for SEO */}
               <div className="self-center lg:col-span-4">
                 <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl xl:text-5xl">
-                  Hey 👋 I am <span className="text-indigo-600">Brian Jones</span>, writing on NFTs.
+                  Hey 👋 I am <span className="text-indigo-600">Mubashir Taj</span>, Developer.
                 </h1>
                 <p className="mt-5 text-base font-normal leading-7 text-gray-500">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus.

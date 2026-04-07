@@ -7,6 +7,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
+import Link from "next/link";
 
 import React, { useRef, useState } from "react";
 
@@ -250,7 +251,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       )}
     >
       {items.map((item, idx) => (
-        <a
+        <Link
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
           className="relative px-4 py-2 text-(--primary-color) hover:text-(--primary-color) dark:text-neutral-300 transition-colors duration-300"
@@ -264,7 +265,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
             />
           )}
           <span className="relative z-20">{item.name}</span>
-        </a>
+        </Link>
       ))}
     </motion.div>
   );
@@ -402,12 +403,9 @@ export const NavbarButton = ({
   };
 
   return (
-    <Tag
-      href={href || undefined}
-      className={cn(baseStyles, variantStyles[variant], className)}
-      {...props}
-    >
-      {children}
-    </Tag>
+    <Link className={cn(baseStyles, variantStyles[variant], className)} href={href || "#"}  > 
+   
+    {children} 
+    </Link>
   );
 };
