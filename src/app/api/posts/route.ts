@@ -5,19 +5,20 @@ import { Blog, Tag, Category } from "@/utils/models/Blog";
 import { revalidatePath } from "next/cache";
 import dbConnect from "@/utils/db";
 import { Types } from "mongoose";
+import { User } from "@/utils/models/user.model";
 
 // Helper to get current user
-// async function getCurrentUser() {
-//   const session = await getServerSession();
-//   if (!session?.user?.email) {
-//     return null;
-//   }
+async function getCurrentUser() {
+  const session = await getServerSession();
+  if (!session?.user?.email) {
+    return null;
+  }
   
-//   // Get user from database (assuming you have a User model)
-//   const { User } = await import("@/utils/models/User");
-//   const user = await User.findOne({ email: session.user.email });
-//   return user;
-// }
+  // Get user from database (assuming you have a User model)
+  const { User } = await import("@/utils/models/user.model");
+  const user = await User.findOne({ email: session.user.email });
+  return user;
+}
 
 // GET /api/posts - Fetch posts with pagination
 interface UserType  {
@@ -77,16 +78,13 @@ export async function POST(request: NextRequest) {
     await dbConnect();
     
     // Check authentication
-    const user = {
-      _id:'507f1f77bcf86cd799439011',
-      role:"admin"
-    };
-    // if (!user) {
-    //   return NextResponse.json(
-    //     { error: "Unauthorized" },
-    //     { status: 401 }
-    //   );
-    // }
+    const user =await getCurrentUser()
+    if (!user) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
     
     const body = await request.json();
     const {
@@ -239,7 +237,7 @@ export async function PUT(request: NextRequest) {
   try {
     await dbConnect();
     
-    const user = {_id:18154894,role:"admin"};
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

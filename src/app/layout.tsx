@@ -4,6 +4,7 @@ import "./globals.css";
 import {NavbarDemo} from "@/components/resizable-navbar-demo";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import PortfolioFooter from "@/components/footer";
+import Provider from "@/components/session-Provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +33,13 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
        
-      
+      <Provider>
+
         {/* <SmoothCursor /> */}
         <NavbarDemo />
         {children}
         <PortfolioFooter />
+      </Provider>
         </body>
     </html>
   );
