@@ -1,35 +1,73 @@
 // lib/models/Blog.ts
 import mongoose, { Schema, Document, Model, Types } from "mongoose";
-import { CallbackWithoutResultAndOptionalError } from "mongoose";
 
-// ─── Sub-schemas ──────────────────────────────────────────────────────────────
+export interface IBlog extends Document {
+  title: string;
+  slug: string;
+  type: PostType;
+  status: PostStatus;
+  excerpt: string;
+  body: string;
+  bodyText: string;
+  codeBlocks: ICodeBlock[];
+  tableOfContents: ITableOfContentsItem[];
+  coverImage: string;
+  coverImageAlt: string;
+  coverImageCaption?: string;
+  ogImage?: string;
+  images: string[];
+  category: Types.ObjectId;
+  tags: Types.ObjectId[];
+  series?: string;
+  seriesOrder?: number;
+  author: Types.ObjectId;
+  seo: ISEO;
+  views: number;
+  uniqueViews: number;
+  likes: number;
+  bookmarks: number;
+  socialShares: ISocialShare;
+  comments: IComment[];
+  commentsEnabled: boolean;
+  commentsCount: number;
+  readingStats: IReadingStats;
+  publishedAt?: Date;
+  scheduledAt?: Date;
+  featuredAt?: Date;
+  lastEditedAt?: Date;
+  isFeatured: boolean;
+  isPinned: boolean;
+  isSponsored: boolean;
+  requiresSubscription: boolean;
+  techStack: string[];
+  difficulty?: Difficulty;
+  githubUrl?: string;
+  demoUrl?: string;
+  revisions: IRevision[];
+  createdAt: Date;
+  updatedAt: Date;
+  url: string;
+  isPublished: boolean;
+}
 
-const SEOSchema = new Schema(
-  {
-    metaTitle: { type: String, maxlength: 70 },
-    metaDescription: { type: String, maxlength: 160 },
-    canonicalUrl: { type: String },
-    ogTitle: { type: String, maxlength: 70 },
-    ogDescription: { type: String, maxlength: 200 },
-    ogImage: { type: String },
-    twitterCard: {
-      type: String,
-      enum: ["summary", "summary_large_image"],
-      default: "summary_large_image",
-    },
-    twitterTitle: { type: String },
-    twitterDescription: { type: String },
-    twitterImage: { type: String },
-    jsonLd: { type: Schema.Types.Mixed },
-    focusKeyword: { type: String },
-    keywords: [{ type: String }],
-    noIndex: { type: Boolean, default: false },
-    noFollow: { type: Boolean, default: false },
-  },
-  { _id: false }
-);
+interface ISEO {
+  metaTitle?: string;
+  metaDescription?: string;
+  canonicalUrl?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  twitterCard?: "summary" | "summary_large_image";
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  jsonLd?: any;
+  focusKeyword?: string;
+  keywords?: string[];
+  noIndex?: boolean;
+  noFollow?: boolean;
+}
 
-// Define interfaces for sub-schemas
 interface ITableOfContentsItem {
   id: string;
   text: string;
@@ -75,6 +113,45 @@ interface IRevision {
   body: string;
   editedAt: Date;
   editNote?: string;
+}
+
+const SEOSchema = new Schema(
+  {
+    metaTitle: { type: String, maxlength: 70 },
+    metaDescription: { type: String, maxlength: 160 },
+    canonicalUrl: { type: String },
+    ogTitle: { type: String, maxlength: 70 },
+    ogDescription: { type: String, maxlength: 200 },
+    ogImage: { type: String },
+    twitterCard: {
+      type: String,
+      enum: ["summary", "summary_large_image"],
+      default: "summary_large_image",
+    },
+    twitterTitle: { type: String },
+    twitterDescription: { type: String },
+    twitterImage: { type: String },
+    jsonLd: { type: Schema.Types.Mixed },
+    focusKeyword: { type: String },
+    keywords: [{ type: String }],
+    noIndex: { type: Boolean, default: false },
+    noFollow: { type: Boolean, default: false },
+  },
+  { _id: false }
+);
+
+export interface ITag extends Document {
+  name: string;
+  slug: string;
+  description?: string;
+  color?: string;
+  postCount: number;
+  seo: {
+    metaTitle?: string;
+    metaDescription?: string;
+  };
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const TableOfContentsItemSchema = new Schema<ITableOfContentsItem>(
@@ -131,22 +208,6 @@ const CommentSchema = new Schema<IComment>(
   { timestamps: true }
 );
 
-// ─── Tag Model ────────────────────────────────────────────────────────────────
-
-export interface ITag extends Document {
-  name: string;
-  slug: string;
-  description?: string;
-  color?: string;
-  postCount: number;
-  seo: {
-    metaTitle?: string;
-    metaDescription?: string;
-  };
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 const TagSchema = new Schema<ITag>(
   {
     name: { type: String, required: true, unique: true, maxlength: 50 },
@@ -164,8 +225,6 @@ const TagSchema = new Schema<ITag>(
 
 TagSchema.index({ slug: 1 });
 TagSchema.index({ postCount: -1 });
-
-// ─── Category Model ───────────────────────────────────────────────────────────
 
 export interface ICategory extends Document {
   name: string;
@@ -208,79 +267,9 @@ CategorySchema.index({ slug: 1 });
 CategorySchema.index({ parentCategory: 1 });
 CategorySchema.index({ order: 1, postCount: -1 });
 
-// ─── Main Blog Post Model ─────────────────────────────────────────────────────
-
 export type PostStatus = "draft" | "published" | "archived" | "scheduled";
 export type PostType = "article" | "tutorial" | "snippet" | "project" | "note";
 export type Difficulty = "beginner" | "intermediate" | "advanced";
-
-// SEO Interface
-interface ISEO {
-  metaTitle?: string;
-  metaDescription?: string;
-  canonicalUrl?: string;
-  ogTitle?: string;
-  ogDescription?: string;
-  ogImage?: string;
-  twitterCard?: "summary" | "summary_large_image";
-  twitterTitle?: string;
-  twitterDescription?: string;
-  twitterImage?: string;
-  jsonLd?: any;
-  focusKeyword?: string;
-  keywords?: string[];
-  noIndex?: boolean;
-  noFollow?: boolean;
-}
-
-export interface IBlog extends Document {
-  title: string;
-  slug: string;
-  type: PostType;
-  status: PostStatus;
-  excerpt: string;
-  body: string;
-  bodyText: string;
-  codeBlocks: ICodeBlock[];
-  tableOfContents: ITableOfContentsItem[];
-  coverImage: string;
-  coverImageAlt: string;
-  coverImageCaption?: string;
-  ogImage?: string;
-  images: string[];
-  category: Types.ObjectId;
-  tags: Types.ObjectId[];
-  series?: string;
-  seriesOrder?: number;
-  author: Types.ObjectId;
-  seo: ISEO;
-  views: number;
-  uniqueViews: number;
-  likes: number;
-  bookmarks: number;
-  socialShares: ISocialShare;
-  comments: IComment[];
-  commentsEnabled: boolean;
-  commentsCount: number;
-  readingStats: IReadingStats;
-  publishedAt?: Date;
-  scheduledAt?: Date;
-  featuredAt?: Date;
-  lastEditedAt?: Date;
-  isFeatured: boolean;
-  isPinned: boolean;
-  isSponsored: boolean;
-  requiresSubscription: boolean;
-  techStack: string[];
-  difficulty?: Difficulty;
-  githubUrl?: string;
-  demoUrl?: string;
-  revisions: IRevision[];
-  createdAt: Date;
-  updatedAt: Date;
-  url: string;
-  isPublished: boolean;
-}
 
 const BlogSchema = new Schema<IBlog>(
   {
@@ -351,8 +340,6 @@ const BlogSchema = new Schema<IBlog>(
   }
 );
 
-// ─── Virtuals ─────────────────────────────────────────────────────────────────
-
 BlogSchema.virtual("url").get(function(this: IBlog) {
   return `/blog/${this.slug}`;
 });
@@ -360,8 +347,6 @@ BlogSchema.virtual("url").get(function(this: IBlog) {
 BlogSchema.virtual("isPublished").get(function(this: IBlog) {
   return this.status === "published" && !!this.publishedAt;
 });
-
-// ─── Indexes ─────────────────────────────────────────────────────────────
 
 BlogSchema.index({ slug: 1 });
 BlogSchema.index({ status: 1, publishedAt: -1 });
@@ -399,9 +384,6 @@ BlogSchema.index(
   }
 );
 
-// ─── Pre-save hooks ───────────────────────────────────────────────────────────
-
-// 1. Use 'async' instead of a 'next' callback (Modern & Cleaner)
 BlogSchema.pre<IBlog>("save", async function () {
   if (this.isModified("status") && this.status === "published" && !this.publishedAt) {
     this.publishedAt = new Date();
@@ -432,10 +414,7 @@ BlogSchema.pre<IBlog>("save", async function () {
   if (this.isModified("comments")) {
     this.commentsCount = this.comments.filter((c) => c.isApproved).length;
   }
-  
-  // No next() needed when using async!
 });
-// ─── Static helpers ───────────────────────────────────────────────────────────
 
 interface BlogModel extends Model<IBlog> {
   findPublished(query?: any): any;
@@ -459,8 +438,6 @@ BlogSchema.statics.findRelated = function(post: IBlog, limit = 4) {
     .sort({ views: -1, publishedAt: -1 })
     .limit(limit);
 };
-
-// ─── Model exports ────────────────────────────────────────────────────────────
 
 export const Blog = (mongoose.models.Blog as BlogModel) || 
   mongoose.model<IBlog, BlogModel>("Blog", BlogSchema);
