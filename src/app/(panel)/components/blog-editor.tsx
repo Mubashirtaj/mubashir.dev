@@ -12,7 +12,6 @@ export default function BlogEditor({
   model: string;
   setModel: (model: string) => void;
 }) {
-  // Helper: upload any file to AWS via presigned URL
   const uploadToAWS = async (file: File) => {
     const res = await fetch("/api/upload", {
       method: "POST",
@@ -45,36 +44,80 @@ export default function BlogEditor({
           placeholderText: "Write your blog content here...",
           charCounterCount: true,
           toolbarButtons: [
-            "bold", "italic", "underline", "strikeThrough", "subscript", "superscript",
-            "fontFamily", "fontSize", "color", "paragraphFormat", "paragraphStyle",
-            "align", "formatOL", "formatUL", "outdent", "indent", "quote",
-            "insertLink", "insertImage", "insertVideo", "insertFile", "insertTable",
-            "emoticons", "specialCharacters", "insertHR", "undo", "redo", "clearFormatting",
-            "selectAll", "html", "fullscreen", "print", "help"
+            "bold",
+            "italic",
+            "underline",
+            "strikeThrough",
+            "subscript",
+            "superscript",
+            "fontFamily",
+            "fontSize",
+            "color",
+            "paragraphFormat",
+            "paragraphStyle",
+            "align",
+            "formatOL",
+            "formatUL",
+            "outdent",
+            "indent",
+            "quote",
+            "insertLink",
+            "insertImage",
+            "insertVideo",
+            "insertFile",
+            "insertTable",
+            "emoticons",
+            "specialCharacters",
+            "insertHR",
+            "undo",
+            "redo",
+            "clearFormatting",
+            "selectAll",
+            "html",
+            "fullscreen",
+            "print",
+            "help",
           ],
           events: {
             "image.beforeUpload": async function (files: File[]) {
               if (!files.length) return false;
               const publicUrl = await uploadToAWS(files[0]);
-              (this as any).image.insert(publicUrl, false, null, (this as any).image.get(), null);
+              (this as any).image.insert(
+                publicUrl,
+                false,
+                null,
+                (this as any).image.get(),
+                null,
+              );
               return false;
             },
             "video.beforeUpload": async function (files: File[]) {
               if (!files.length) return false;
               const publicUrl = await uploadToAWS(files[0]);
-              (this as any).video.insert(publicUrl, null, null, (this as any).video.get(), null);
+              (this as any).video.insert(
+                publicUrl,
+                null,
+                null,
+                (this as any).video.get(),
+                null,
+              );
               return false;
             },
             "file.beforeUpload": async function (files: File[]) {
               if (!files.length) return false;
               const publicUrl = await uploadToAWS(files[0]);
-              (this as any).file.insert(publicUrl, files[0].name, null, (this as any).file.get(), null);
+              (this as any).file.insert(
+                publicUrl,
+                files[0].name,
+                null,
+                (this as any).file.get(),
+                null,
+              );
               return false;
             },
           },
         }}
       />
-     
     </div>
   );
 }
