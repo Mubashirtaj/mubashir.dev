@@ -1,3 +1,4 @@
+import Provider from "@/components/session-Provider";
 import '@wordpress/components/build-style/style.css';
 import '@wordpress/block-editor/build-style/style.css';
 import "@/app/globals.css";
@@ -8,7 +9,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+
+      <body>
+        
+            <Provider>
+
+      
+        {children}
+        
+            </Provider>
+        </body>
     </html>
   );
 }

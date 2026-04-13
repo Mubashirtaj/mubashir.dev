@@ -74,10 +74,7 @@ export default function BlogEditor({
           },
         }}
       />
-      <div style={{ marginTop: 20 }}>
-        <h3>Preview:</h3>
-        <div dangerouslySetInnerHTML={{ __html: model }} />
-      </div>
+     
     </div>
   );
 }
