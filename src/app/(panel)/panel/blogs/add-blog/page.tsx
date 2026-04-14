@@ -646,6 +646,7 @@ export default function AddEditBlogPage() {
                   {/* Media */}
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold mb-4">Media</h3>
+                    <input type="file" name="" />
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium mb-1">

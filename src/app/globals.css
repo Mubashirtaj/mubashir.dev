@@ -5,11 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --bg-color: #f8fafc;
-  --text-color: #1e0f35; 
-  --primary-color: #6366f1;   /* accent */
-  --secondary-color: #c0cafc80;
-  --primary-hover: #7b76e4;
+  --bg-color: #091413;
+  --text-color: #B0E4CC; 
+  --primary-color: #408A71;   /* accent */
+  --secondary-color: #285A48;
+  --primary-hover: #2f6f5a; /* slightly darker shade for hover */
 }
 /* globals.css */
 /* 

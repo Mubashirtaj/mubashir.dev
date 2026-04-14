@@ -29,7 +29,7 @@ export function HeroSection() {
               {/* Main Content - Semantic HTML for SEO */}
               <div className="self-center lg:col-span-4">
                 <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl xl:text-5xl">
-                  Hey 👋 I am <span className="text-indigo-600">Mubashir Taj</span>, Developer.
+                  Hey 👋 I am <span className="text-(--primary-color)">Mubashir Taj</span>, Developer.
                 </h1>
                 <p className="mt-5 text-base font-normal leading-7 text-gray-500">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus.
@@ -39,8 +39,8 @@ export function HeroSection() {
                   <Link
                     href="/blog"
                     title="Read exclusive NFT blog posts"
-                    className="disable-smooth-cursor relative inline-flex items-center justify-center px-8 py-3 sm:text-sm sm:py-3.5 text-base font-semibold text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
-                    aria-label="Read exclusive NFT blog content"
+                    className="disable-smooth-cursor relative inline-flex items-center justify-center px-8 py-3 sm:text-sm sm:py-3.5 text-base font-semibold text-white transition-all duration-200 bg-(--primary-color) border border-transparent rounded-lg hover:bg-(--primary-hover) focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-(--primary-color)"
+                    aria-label="Read exclusive NFT blog content"  
                   >
                     Read Exclusive Blog
                   </Link>

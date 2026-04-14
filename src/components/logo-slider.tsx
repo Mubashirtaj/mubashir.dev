@@ -2,14 +2,13 @@ import LogoLoop from './LogoLoop';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiPostgresql } from 'react-icons/si';
 
 const techLogos = [
-  { node: <SiReact color='#4f46e5' />, title: "React", href: "https://react.dev" },
-  { node: <SiNextdotjs color='#1e0f35' />, title: "Next.js", href: "https://nextjs.org" },
-  { node: <SiTypescript color='#4f46e5' />, title: "TypeScript", href: "https://www.typescriptlang.org" },
-  { node: <SiTailwindcss color='#1e0f35' />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+  { node: <SiReact color="var(--primary-color)" />, title: "React", href: "https://react.dev" },
+  { node: <SiNextdotjs color="var(--text-color)" />, title: "Next.js", href: "https://nextjs.org" },
+  { node: <SiTypescript color="var(--primary-color)" />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+  { node: <SiTailwindcss color="var(--text-color)" />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
 
-  // Diverse options for broader reach
-  { node: <SiNodedotjs color='#4f46e5' title="Node.js Backend" />, title: "Node.js", href: "https://nodejs.org" },
-  { node: <SiPostgresql color='#1e0f35' title="PostgreSQL Database" />, title: "PostgreSQL", href: "https://postgresql.org" },
+  { node: <SiNodedotjs color="var(--primary-color)" />, title: "Node.js", href: "https://nodejs.org" },
+  { node: <SiPostgresql color="var(--text-color)" />, title: "PostgreSQL", href: "https://postgresql.org" },
 ];
 
 export function LogoSlider() {

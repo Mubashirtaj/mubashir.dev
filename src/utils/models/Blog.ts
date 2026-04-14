@@ -140,19 +140,6 @@ const SEOSchema = new Schema(
   { _id: false }
 );
 
-export interface ITag extends Document {
-  name: string;
-  slug: string;
-  description?: string;
-  color?: string;
-  postCount: number;
-  seo: {
-    metaTitle?: string;
-    metaDescription?: string;
-  };
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 const TableOfContentsItemSchema = new Schema<ITableOfContentsItem>(
   {
@@ -208,64 +195,13 @@ const CommentSchema = new Schema<IComment>(
   { timestamps: true }
 );
 
-const TagSchema = new Schema<ITag>(
-  {
-    name: { type: String, required: true, unique: true, maxlength: 50 },
-    slug: { type: String, required: true, unique: true, lowercase: true },
-    description: { type: String, maxlength: 300 },
-    color: { type: String, default: "#3b82f6" },
-    postCount: { type: Number, default: 0 },
-    seo: {
-      metaTitle: { type: String, maxlength: 70 },
-      metaDescription: { type: String, maxlength: 160 },
-    },
-  },
-  { timestamps: true }
-);
 
-TagSchema.index({ slug: 1 });
-TagSchema.index({ postCount: -1 });
 
-export interface ICategory extends Document {
-  name: string;
-  slug: string;
-  description?: string;
-  icon?: string;
-  coverImage?: string;
-  parentCategory?: Types.ObjectId;
-  postCount: number;
-  seo: {
-    metaTitle?: string;
-    metaDescription?: string;
-    ogImage?: string;
-  };
-  order: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
-const CategorySchema = new Schema<ICategory>(
-  {
-    name: { type: String, required: true, unique: true, maxlength: 80 },
-    slug: { type: String, required: true, unique: true, lowercase: true },
-    description: { type: String, maxlength: 500 },
-    icon: { type: String },
-    coverImage: { type: String },
-    parentCategory: { type: Schema.Types.ObjectId, ref: "Category" },
-    postCount: { type: Number, default: 0 },
-    seo: {
-      metaTitle: { type: String, maxlength: 70 },
-      metaDescription: { type: String, maxlength: 160 },
-      ogImage: { type: String },
-    },
-    order: { type: Number, default: 0 },
-  },
-  { timestamps: true }
-);
 
-CategorySchema.index({ slug: 1 });
-CategorySchema.index({ parentCategory: 1 });
-CategorySchema.index({ order: 1, postCount: -1 });
+
+
+
 
 export type PostStatus = "draft" | "published" | "archived" | "scheduled";
 export type PostType = "article" | "tutorial" | "snippet" | "project" | "note";
@@ -441,9 +377,3 @@ BlogSchema.statics.findRelated = function(post: IBlog, limit = 4) {
 
 export const Blog = (mongoose.models.Blog as BlogModel) || 
   mongoose.model<IBlog, BlogModel>("Blog", BlogSchema);
-
-export const Tag: Model<ITag> =
-  mongoose.models.Tag ?? mongoose.model<ITag>("Tag", TagSchema);
-
-export const Category: Model<ICategory> =
-  mongoose.models.Category ?? mongoose.model<ICategory>("Category", CategorySchema);

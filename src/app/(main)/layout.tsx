@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "../globals.css";
+import "@/app/globals.css";
 import {NavbarDemo} from "@/components/resizable-navbar-demo";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import PortfolioFooter from "@/components/footer";
