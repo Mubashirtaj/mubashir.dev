@@ -58,7 +58,7 @@ export default function ContactPage() {
             className="mb-4 inline-block rounded-full px-4 py-1.5 text-xs font-medium tracking-widest uppercase"
             style={{
               background: "var(--secondary-color)",
-              color: "var(--primary-color)",
+              color: "var(--text-color)",
               border: "1px solid var(--secondary-color)",
             }}
           >
@@ -135,7 +135,7 @@ export default function ContactPage() {
                   <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "#94a3b8" }}>
                     {item.label}
                   </p>
-                  <p className="mt-0.5 text-sm font-medium" style={{ color: "var(--text-color)" }}>
+                  <p className="mt-0.5 text-sm font-medium" style={{ color: "var(--primary-color)" }}>
                     {item.value}
                   </p>
                 </div>
@@ -246,9 +246,8 @@ export default function ContactPage() {
                         required
                         className="w-full resize-none rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200"
                         style={{
-                          background: "var(--bg-color)",
                           border: "1px solid var(--secondary-color)",
-                          color: "var(--text-color)",
+                          color: "var(--secondary-color)",
                           fontFamily: "inherit",
                         }}
                         onFocus={(e) => (e.currentTarget.style.borderColor = "var(--primary-color)")}
@@ -323,9 +322,7 @@ function Field({
         required={required}
         className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200"
         style={{
-          background: "var(--bg-color)",
           border: "1px solid var(--secondary-color)",
-          color: "var(--text-color)",
           fontFamily: "inherit",
         }}
         onFocus={(e) => (e.currentTarget.style.borderColor = "var(--primary-color)")}

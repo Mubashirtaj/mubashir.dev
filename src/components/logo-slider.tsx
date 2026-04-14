@@ -13,7 +13,7 @@ const techLogos = [
 
 export function LogoSlider() {
   return (
-    <section className="mt-12 py-10 bg-white" aria-labelledby="tech-stack-heading">
+    <section className="mt-12 py-10 bg-(--bg-color)" aria-labelledby="tech-stack-heading">
       <div className="max-w-7xl mx-auto px-4">
         {/* SEO-friendly Heading - Hidden visually if you want, but readable by bots */}
         <h2 id="tech-stack-heading" className="sr-only">
@@ -34,7 +34,7 @@ export function LogoSlider() {
             hoverSpeed={10}
             scaleOnHover
             fadeOut
-            fadeOutColor="#ffffff"
+            fadeOutColor="#022c29"
           />
         </div>
 

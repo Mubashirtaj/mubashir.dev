@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --bg-color: #091413;
+  --bg-color: #022c29;
   --text-color: #B0E4CC; 
   --primary-color: #408A71;   /* accent */
   --secondary-color: #285A48;

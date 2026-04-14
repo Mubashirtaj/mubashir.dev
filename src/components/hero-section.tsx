@@ -5,13 +5,36 @@ import Particles from './Particles';
 
 
 export function HeroSection() {
+  const posts = [
+  {
+    id: 1,
+    title: "Is 2026 Web Development Still Worth It",
+    slug: "is-2026-web-development-still-worth-it-",
+    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png",
+  },
+  
+  {
+    id: 1,
+    title: "Is 2026 Web Development Still Worth It",
+    slug: "is-2026-web-development-still-worth-it-",
+    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png",
+  },
+  
+  {
+    id: 1,
+    title: "Is 2026 Web Development Still Worth It",
+    slug: "is-2026-web-development-still-worth-it-",
+    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png",
+  },
+  
+];
   return (
     <>
       <div className="overflow-hidden relative">
-    <div style={{ width: '100%', height: '600px', position: 'absolute' }}>
+    <div style={{ width: '100%', height: '600px', position: 'absolute' }} className='z-0'>
   <Particles
-    particleColors={["#4826f2"]}
-    particleCount={200}
+ particleColors={["#408A71"]}
+     particleCount={200}
     particleSpread={10}
     speed={0.1}
     particleBaseSize={100}
@@ -27,9 +50,9 @@ export function HeroSection() {
             <div className="grid max-w-md grid-cols-1 mx-auto lg:grid-cols-12 gap-x-6 gap-y-8 lg:max-w-none">
               
               {/* Main Content - Semantic HTML for SEO */}
-              <div className="self-center lg:col-span-4">
-                <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl xl:text-5xl">
-                  Hey 👋 I am <span className="text-(--primary-color)">Mubashir Taj</span>, Developer.
+              <div className="self-center lg:col-span-4 z-20">
+                <h1 className="text-3xl font-bold text-(--bg-color) sm:text-4xl xl:text-5xl">
+                  Hey 👋 I am <span className="text-(--secondary-color)">Mubashir Taj</span>, Developer.
                 </h1>
                 <p className="mt-5 text-base font-normal leading-7 text-gray-500">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vehicula massa in enim luctus.
@@ -54,30 +77,33 @@ export function HeroSection() {
                 </p>
 
                 <div className="mt-6 space-y-6 lg:space-y-8">
-                  {[1, 2, 3].map((item) => (
-                    <article key={item} className="relative overflow-hidden">
-                      <div className="flex items-start disable-smooth-cursor lg:items-center">
-                        <Image
-                          className="object-cover w-12 h-12 rounded-lg shrink-0"
-                          src={`/thumbnail-${item}.png`}
-                          alt={`NFT article thumbnail ${item}`}
-                          width={48}
-                          height={48}
-                          loading="lazy"
-                        />
-                        <p className="ml-5 text-base font-bold leading-6 text-gray-900">
-                          <Link 
-                            href={`/blog/post-${item}`}
-                            title="Read full article about graphic design success"
-                            className="hover:text-indigo-600 transition-colors"
-                          >
-                            How a visual artist redefines success in graphic design
-                            <span className="absolute inset-0" aria-hidden="true"></span>
-                          </Link>
-                        </p>
-                      </div>
-                    </article>
-                  ))}
+                 {posts.map((post) => (
+  <article key={post.id} className="relative overflow-hidden">
+    <div className="flex items-start disable-smooth-cursor lg:items-center">
+      
+      <Image
+        className="object-cover w-12 h-12 rounded-lg shrink-0"
+        src={post.image}
+        alt={post.title}
+        width={48}
+        height={48}
+        loading="lazy"
+      />
+
+      <p className="ml-5 text-base font-bold leading-6 text-text">
+        <Link 
+          href={`/blog/${post.slug}`}
+          title={post.title}
+          className="hover:text-primary transition-colors"
+        >
+          {post.title}
+          <span className="absolute inset-0" aria-hidden="true"></span>
+        </Link>
+      </p>
+
+    </div>
+  </article>
+))}
                 </div>
               </div>
 

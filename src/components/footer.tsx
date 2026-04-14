@@ -171,8 +171,8 @@ export default function PortfolioFooter() {
         <div className="mb-7 flex items-center gap-3">
           <div className="h-px flex-1 bg-white/[0.06]" />
           <span className="font-mono text-[11px] text-slate-600">
-            <span className="text-indigo-500">const</span> year ={" "}
-            <span className="text-purple-400">
+            <span className="text-[var(--primary-color)]">const</span> year ={" "}
+            <span className="text-[var(--secondary-color)]">
               {new Date().getFullYear()}
             </span>
             ;
@@ -185,7 +185,7 @@ export default function PortfolioFooter() {
           {/* Comment-style copyright */}
           <p className="font-mono text-xs text-slate-600">
             
-            <span className="text-indigo-400">Mubashirt Taj</span> · All rights
+            <span className="text-[var(--secondary-color)]">Mubashirt Taj</span> · All rights
             reserved
           </p>
 

@@ -6,45 +6,49 @@ const BlogSection = () => {
     const posts = [
         {
             id: 'article-1',
-            title: 'UX review presentations',
-            summary: 'How do you create compelling presentations that wow your colleagues and impress your managers?',
-            href: '#',
-            thumbnailUrl: 'https://www.untitledui.com/marketing/spirals.webp',
+            title: 'Is 2026 Web Development Still Worth It?',
+            summary: "Web development in 2026 has transformed with AI tooling, edge runtimes, and modern full-stack frameworks. But is it still worth learning or pursuing as a career? Here's the honest, data-backed breakdown.",
+            href: '/blog/is-2026-web-development-still-worth-it-',
+            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png',
             publishedAt: '20 Jan 2027',
-            author: { name: 'Olivia Rhye', href: '#' },
+            author: { name: 'Mubashir Taj', href: '#' },
             tags: [
-                { name: 'Design', href: '#' },
-                { name: 'Research', href: '#' },
-                { name: 'Presentation', href: '#' },
+                { name: 'career advice', href: '#' },
+                { name: 'fullstack', href: '#' },
+                { name: 'AI tooling', href: '#' },
             ],
         },
+       
         {
-            id: 'article-2',
-            title: 'Migrating to Linear 101',
-            summary: "Linear helps streamline software projects, sprints, tasks, and bug tracking. Here's how to get started.",
-            href: '#',
-            thumbnailUrl: 'https://www.untitledui.com/marketing/conversation.webp',
-            publishedAt: '19 Jan 2027',
-            author: { name: 'Phoenix Baker', href: '#' },
+            id: 'article-1',
+            title: 'Is 2026 Web Development Still Worth It?',
+            summary: "Web development in 2026 has transformed with AI tooling, edge runtimes, and modern full-stack frameworks. But is it still worth learning or pursuing as a career? Here's the honest, data-backed breakdown.",
+            href: '/blog/is-2026-web-development-still-worth-it-',
+            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png',
+            publishedAt: '20 Jan 2027',
+            author: { name: 'Mubashir Taj', href: '#' },
             tags: [
-                { name: 'Product', href: '#' },
-                { name: 'Tools', href: '#' },
-                { name: 'SaaS', href: '#' },
+                { name: 'career advice', href: '#' },
+                { name: 'fullstack', href: '#' },
+                { name: 'AI tooling', href: '#' },
             ],
         },
+       
         {
-            id: 'article-3',
-            title: 'Building your API stack',
-            summary: 'The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.',
-            href: '#',
-            thumbnailUrl: 'https://www.untitledui.com/blog/two-mobile-shapes-pattern.webp',
-            publishedAt: '18 Jan 2027',
-            author: { name: 'Lana Steiner', href: '#' },
+            id: 'article-1',
+            title: 'Is 2026 Web Development Still Worth It?',
+            summary: "Web development in 2026 has transformed with AI tooling, edge runtimes, and modern full-stack frameworks. But is it still worth learning or pursuing as a career? Here's the honest, data-backed breakdown.",
+            href: '/blog/is-2026-web-development-still-worth-it-',
+            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png',
+            publishedAt: '20 Jan 2027',
+            author: { name: 'Mubashir Taj', href: '#' },
             tags: [
-                { name: 'Engineering', href: '#' },
-                { name: 'Tools', href: '#' },
+                { name: 'career advice', href: '#' },
+                { name: 'fullstack', href: '#' },
+                { name: 'AI tooling', href: '#' },
             ],
         },
+       
     ];
 
     return (
@@ -67,7 +71,7 @@ const BlogSection = () => {
                 {/* Posts Grid — compact cards */}
                 <ul className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2 md:mt-12 lg:grid-cols-3">
                     {posts.map((post) => (
-                        <li key={post.id}>
+                        <li key={post.id} className='border border-[var(--text-color)] p-5 rounded-2xl' >
                             <article className="flex flex-col gap-3">
 
                                 {/* Thumbnail — shorter aspect ratio */}
