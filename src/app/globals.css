@@ -5,12 +5,37 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Base */
   --bg-color: #022c29;
-  --text-color: #B0E4CC; 
-  --primary-color: #408A71;   /* accent */
+  --bg-soft: #033c38;
+
+  /* Text */
+  --text-color: #d2f5e9;
+  --text-muted: #9ed3c2;
+
+  /* Primary Accent (brighter + modern) */
+  --primary-color: #4FD1A5;
+  --primary-hover: #38B28C;
+
+  /* Secondary */
   --secondary-color: #285A48;
-  --primary-hover: #2f6f5a; /* slightly darker shade for hover */
+  --card-bg: rgba(40, 90, 72, 0.6);
+
+  /* Borders & UI */
+  --border-color: rgba(79, 209, 165, 0.2);
+
+  /* Glow Effect */
+  --glow-color: rgba(79, 209, 165, 0.35);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #4FD1A5, #285A48);
+  --gradient-bg: radial-gradient(circle at top, #033c38, #022c29);
+
+  /* Shadows */
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 25px rgba(79, 209, 165, 0.25);
 }
+
 /* globals.css */
 /* 
 *{
