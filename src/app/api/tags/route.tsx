@@ -2,14 +2,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import dbConnect from "@/utils/db";
-import { Tag } from "@/utils/models/Blog";
 import { revalidatePath } from "next/cache";
-
+import { Tag } from "@/utils/models/tags.model";
+import User from "@/utils/models/user.model"; // static import
 async function isAdmin() {
   const session = await getServerSession();
   if (!session?.user?.email) return false;
   
-  const { User } = await import("@/utils/models/user.model");
   const user = await User.findOne({ email: session.user.email });
   return user?.role === "admin";
 }

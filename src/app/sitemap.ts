@@ -8,10 +8,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await Blog.find({ status: "published" }).select("slug updatedAt");
 
   return [
-    { url: "https://yourdomain.com", lastModified: new Date() },
-    { url: "https://yourdomain.com/blog", lastModified: new Date() },
+    { url: "https://mubashirtaj.dev", lastModified: new Date() },
+    { url: "https://mubashirtaj.dev/about", lastModified: new Date() },
+    { url: "https://mubashirtaj.dev/contact", lastModified: new Date() },
+    { url: "https://mubashirtaj.dev/blog", lastModified: new Date() },
     ...posts.map((p) => ({
-      url: `https://yourdomain.com/blog/${p.slug}`,
+      url: `https://mubashirtaj.dev/blog/${p.slug}`,
       lastModified: p.updatedAt,
       changeFrequency: "weekly" as const,
       priority: 0.8,

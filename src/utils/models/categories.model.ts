@@ -38,7 +38,7 @@ const CategorySchema = new Schema<ICategory>(
   { timestamps: true }
 );
 
-CategorySchema.index({ slug: 1 });
+
 CategorySchema.index({ parentCategory: 1 });
 CategorySchema.index({ order: 1, postCount: -1 });
 

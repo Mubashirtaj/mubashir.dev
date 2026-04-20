@@ -20,11 +20,11 @@ export function NavbarDemo() {
     },
     {
       name: "About",
-      link: "#pricing",
+      link: "/about",
     },
     {
       name: "Blog",
-      link: "#contact",
+      link: "/blogs",
     },
   ];
  

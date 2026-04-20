@@ -60,7 +60,7 @@ export function HeroSection() {
                 <div className="disable-smooth-cursor  relative inline-flex mt-9 group">
                   <div className="disable-smooth-cursor absolute transitiona-all duration-1000 opacity-70 inset-0 bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200"></div>
                   <Link
-                    href="/blog"
+                    href="/blogs"
                     title="Read exclusive NFT blog posts"
                     className="disable-smooth-cursor relative inline-flex items-center justify-center px-8 py-3 sm:text-sm sm:py-3.5 text-base font-semibold text-white transition-all duration-200 bg-(--primary-color) border border-transparent rounded-lg hover:bg-(--primary-hover) focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-(--primary-color)"
                     aria-label="Read exclusive NFT blog content"  

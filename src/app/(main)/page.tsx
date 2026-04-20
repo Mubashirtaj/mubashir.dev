@@ -15,7 +15,7 @@ export default function Home() {
    <BentoGridSecondDemo />
    <BlogSection />
    <ServiceIDo />
-   <GoogleReviewsSection />
+   {/* <GoogleReviewsSection /> */}
    
    </>
   );

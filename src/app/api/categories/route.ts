@@ -1,16 +1,15 @@
 // app/api/categories/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import dbConnect from "@/utils/db";
-import { Category } from "@/utils/models/Blog"; // Adjust import path as needed
+import dbConnect from "@/utils/db";// Adjust import path as needed
 import { revalidatePath } from "next/cache";
-
+import User from "@/utils/models/user.model"; // static import
+import { Category } from "@/utils/models/categories.model";
 // Helper to check admin access
 async function isAdmin() {
   const session = await getServerSession();
   if (!session?.user?.email) return false;
   
-  const { User } = await import("@/utils/models/user.model");
   const user = await User.findOne({ email: session.user.email });
   return user?.role === "admin";
 }

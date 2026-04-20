@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { Category } from "@/utils/models/categories.model";
 import { Tag } from "@/utils/models/tags.model";
 import "@/utils/models/user.model";
-// ============ Types ============
+
 interface BlogPost {
   _id: string;
   title: string;
@@ -17,27 +17,12 @@ interface BlogPost {
   coverImageAlt: string;
   type: string;
   difficulty: string;
-  readingStats: {
-    readingTimeMinutes: number;
-  };
+  readingStats: { readingTimeMinutes: number };
   createdAt: Date;
   publishedAt: Date;
-  category: {
-    _id: string;
-    name: string;
-    slug: string;
-  };
-  tags: Array<{
-    _id: string;
-    name: string;
-    slug: string;
-    color: string;
-  }>;
-  author: {
-    name: string;
-    email: string;
-    image: string;
-  };
+  category: { _id: string; name: string; slug: string };
+  tags: Array<{ _id: string; name: string; slug: string; color: string }>;
+  author: { name: string; email: string; image: string };
   isFeatured: boolean;
   isPinned: boolean;
 }
@@ -59,38 +44,55 @@ interface TagType {
   postCount: number;
 }
 
-// ============ Hero Section Component ============
+// ============ Hero Section ============
 function HeroSection({ featuredPosts }: { featuredPosts: BlogPost[] }) {
   const mainFeatured = featuredPosts[0];
   const otherFeatured = featuredPosts.slice(1, 4);
 
   return (
-    <div className="relative bg-gradient-to-br from-red-50 via-rose-50 to-pink-50 rounded-3xl overflow-hidden">
-      {/* Decorative elements */}
+    <div
+      className="relative rounded-3xl overflow-hidden"
+      style={{ background: "var(--gradient-bg)" }}
+    >
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-red-200 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-200 rounded-full blur-3xl"></div>
+        <div
+          className="absolute top-0 left-0 w-72 h-72 rounded-full blur-3xl"
+          style={{ background: "var(--secondary-color)" }}
+        />
+        <div
+          className="absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl"
+          style={{ background: "var(--bg-soft)" }}
+        />
       </div>
 
       <div className="relative px-6 py-12 lg:px-8 lg:py-16">
         <div className="mx-auto max-w-7xl">
-          {/* Section Header */}
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-              Featured <span className="text-red-600">Stories</span>
+            <h2
+              className="text-4xl font-bold tracking-tight sm:text-5xl"
+              style={{ color: "var(--text-color)" }}
+            >
+              Featured{" "}
+              <span style={{ color: "var(--primary-color)" }}>Stories</span>
             </h2>
-            <p className="mt-4 text-lg leading-8 text-gray-600">
+            <p
+              className="mt-4 text-lg leading-8"
+              style={{ color: "var(--text-muted)" }}
+            >
               Discover our hand-picked articles for you
             </p>
           </div>
 
-          {/* Featured Posts Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Featured Post */}
             {mainFeatured && (
               <Link
                 href={`/blog/${mainFeatured.slug}`}
-                className="lg:col-span-2 group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
+                className="lg:col-span-2 group relative overflow-hidden rounded-2xl transition-all duration-300"
+                style={{
+                  background: "var(--card-bg)",
+                  border: "1px solid var(--border-color)",
+                  boxShadow: "var(--shadow-soft)",
+                }}
               >
                 <div className="relative h-80 lg:h-96 overflow-hidden">
                   {mainFeatured.coverImage ? (
@@ -101,35 +103,57 @@ function HeroSection({ featuredPosts }: { featuredPosts: BlogPost[] }) {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-red-400 to-rose-500 flex items-center justify-center">
+                    <div
+                      className="w-full h-full flex items-center justify-center"
+                      style={{ background: "var(--gradient-primary)" }}
+                    >
                       <span className="text-white text-6xl">📝</span>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  
-                  {/* Badges */}
+
                   <div className="absolute top-4 left-4 flex gap-2">
                     {mainFeatured.isFeatured && (
-                      <span className="px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded-full">
+                      <span
+                        className="px-3 py-1 text-xs font-semibold rounded-full"
+                        style={{
+                          background: "var(--primary-color)",
+                          color: "var(--bg-color)",
+                        }}
+                      >
                         Featured
                       </span>
                     )}
-                    <span className="px-3 py-1 bg-white/90 text-gray-700 text-xs font-semibold rounded-full">
+                    <span
+                      className="px-3 py-1 text-xs font-semibold rounded-full"
+                      style={{
+                        background: "rgba(255,255,255,0.9)",
+                        color: "var(--secondary-color)",
+                      }}
+                    >
                       {mainFeatured.type}
                     </span>
                   </div>
 
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <div className="flex items-center gap-2 text-sm mb-2">
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div
+                      className="flex items-center gap-2 text-sm mb-2"
+                      style={{ color: "var(--text-muted)" }}
+                    >
                       <span>{mainFeatured.category?.name}</span>
                       <span>•</span>
-                      <span>{mainFeatured.readingStats?.readingTimeMinutes || 5} min read</span>
+                      <span>
+                        {mainFeatured.readingStats?.readingTimeMinutes || 5} min
+                        read
+                      </span>
                     </div>
-                    <h3 className="text-2xl font-bold mb-2 group-hover:text-red-200 transition">
+                    <h3
+                      className="text-2xl font-bold mb-2 transition"
+                      style={{ color: "var(--text-color)" }}
+                    >
                       {mainFeatured.title}
                     </h3>
-                    <p className="text-white/90 line-clamp-2">
+                    <p className="line-clamp-2" style={{ color: "var(--text-muted)" }}>
                       {mainFeatured.excerpt}
                     </p>
                   </div>
@@ -137,13 +161,17 @@ function HeroSection({ featuredPosts }: { featuredPosts: BlogPost[] }) {
               </Link>
             )}
 
-            {/* Other Featured Posts */}
             <div className="space-y-6">
               {otherFeatured.map((post) => (
                 <Link
                   key={post._id}
                   href={`/blog/${post.slug}`}
-                  className="group flex gap-4 bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300"
+                  className="group flex gap-4 rounded-xl p-4 transition-all duration-300"
+                  style={{
+                    background: "var(--card-bg)",
+                    border: "1px solid var(--border-color)",
+                    boxShadow: "var(--shadow-soft)",
+                  }}
                 >
                   <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                     {post.coverImage ? (
@@ -154,21 +182,33 @@ function HeroSection({ featuredPosts }: { featuredPosts: BlogPost[] }) {
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-red-300 to-rose-400 flex items-center justify-center">
+                      <div
+                        className="w-full h-full flex items-center justify-center"
+                        style={{ background: "var(--gradient-primary)" }}
+                      >
                         <span className="text-2xl">📄</span>
                       </div>
                     )}
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 text-xs text-gray-500 mb-1">
+                    <div
+                      className="flex items-center gap-2 text-xs mb-1"
+                      style={{ color: "var(--text-muted)" }}
+                    >
                       <span>{post.category?.name}</span>
                       <span>•</span>
                       <span>{post.readingStats?.readingTimeMinutes || 5} min</span>
                     </div>
-                    <h3 className="font-semibold text-gray-900 group-hover:text-red-600 transition line-clamp-2">
+                    <h3
+                      className="font-semibold transition line-clamp-2"
+                      style={{ color: "var(--text-color)" }}
+                    >
                       {post.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mt-1 line-clamp-1">
+                    <p
+                      className="text-sm mt-1 line-clamp-1"
+                      style={{ color: "var(--text-muted)" }}
+                    >
                       {post.excerpt}
                     </p>
                   </div>
@@ -182,10 +222,17 @@ function HeroSection({ featuredPosts }: { featuredPosts: BlogPost[] }) {
   );
 }
 
-// ============ Blog Card Component ============
+// ============ Blog Card ============
 function BlogCard({ post }: { post: BlogPost }) {
   return (
-    <article className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+    <article
+      className="group rounded-xl overflow-hidden transition-all duration-300"
+      style={{
+        background: "var(--card-bg)",
+        border: "1px solid var(--border-color)",
+        boxShadow: "var(--shadow-soft)",
+      }}
+    >
       <Link href={`/blog/${post.slug}`}>
         <div className="relative h-48 overflow-hidden">
           {post.coverImage ? (
@@ -196,19 +243,31 @@ function BlogCard({ post }: { post: BlogPost }) {
               className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-red-200 to-rose-300 flex items-center justify-center">
+            <div
+              className="w-full h-full flex items-center justify-center"
+              style={{ background: "var(--gradient-primary)" }}
+            >
               <span className="text-4xl">📖</span>
             </div>
           )}
-          
-          {/* Difficulty Badge */}
+
           {post.difficulty && (
             <div className="absolute top-3 right-3">
-              <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                post.difficulty === 'beginner' ? 'bg-green-500 text-white' :
-                post.difficulty === 'intermediate' ? 'bg-yellow-500 text-white' :
-                'bg-red-500 text-white'
-              }`}>
+              <span
+                className="px-2 py-1 text-xs font-semibold rounded-full"
+                style={{
+                  background:
+                    post.difficulty === "beginner"
+                      ? "#22c55e"
+                      : post.difficulty === "intermediate"
+                      ? "#eab308"
+                      : "var(--primary-color)",
+                  color:
+                    post.difficulty === "advanced"
+                      ? "var(--bg-color)"
+                      : "white",
+                }}
+              >
                 {post.difficulty}
               </span>
             </div>
@@ -216,26 +275,38 @@ function BlogCard({ post }: { post: BlogPost }) {
         </div>
 
         <div className="p-5">
-          {/* Meta info */}
-          <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
-            <span className="text-red-600 font-medium">{post.category?.name}</span>
+          <div
+            className="flex items-center gap-2 text-xs mb-3"
+            style={{ color: "var(--text-muted)" }}
+          >
+            <span
+              className="font-medium"
+              style={{ color: "var(--primary-color)" }}
+            >
+              {post.category?.name}
+            </span>
             <span>•</span>
-            <span>{format(new Date(post.publishedAt || post.createdAt), 'MMM dd, yyyy')}</span>
+            <span>
+              {format(
+                new Date(post.publishedAt || post.createdAt),
+                "MMM dd, yyyy"
+              )}
+            </span>
             <span>•</span>
             <span>{post.readingStats?.readingTimeMinutes || 5} min read</span>
           </div>
 
-          {/* Title */}
-          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition line-clamp-2">
+          <h3
+            className="text-xl font-bold mb-2 transition line-clamp-2"
+            style={{ color: "var(--text-color)" }}
+          >
             {post.title}
           </h3>
 
-          {/* Excerpt */}
-          <p className="text-gray-600 line-clamp-3 mb-4">
+          <p className="line-clamp-3 mb-4" style={{ color: "var(--text-muted)" }}>
             {post.excerpt}
           </p>
 
-          {/* Tags */}
           {post.tags && post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
               {post.tags.slice(0, 3).map((tag) => (
@@ -243,23 +314,32 @@ function BlogCard({ post }: { post: BlogPost }) {
                   key={tag._id}
                   className="px-2 py-1 text-xs rounded-full"
                   style={{
-                    backgroundColor: tag.color || '#FEE2E2',
-                    color: '#991B1B'
+                    background: "rgba(79, 209, 165, 0.15)",
+                    color: "var(--primary-color)",
+                    border: "1px solid var(--border-color)",
                   }}
                 >
                   {tag.name}
                 </span>
               ))}
               {post.tags.length > 3 && (
-                <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
+                <span
+                  className="px-2 py-1 text-xs rounded-full"
+                  style={{
+                    background: "var(--secondary-color)",
+                    color: "var(--text-muted)",
+                  }}
+                >
                   +{post.tags.length - 3}
                 </span>
               )}
             </div>
           )}
 
-          {/* Author */}
-          <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div
+            className="flex items-center gap-3 pt-4"
+            style={{ borderTop: "1px solid var(--border-color)" }}
+          >
             {post.author?.image ? (
               <Image
                 src={post.author.image}
@@ -269,15 +349,31 @@ function BlogCard({ post }: { post: BlogPost }) {
                 className="rounded-full"
               />
             ) : (
-              <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                <span className="text-red-600 text-sm font-semibold">
-                  {post.author?.name?.charAt(0) || 'A'}
+              <div
+                className="w-8 h-8 rounded-full flex items-center justify-center"
+                style={{
+                  background: "rgba(79, 209, 165, 0.15)",
+                  border: "1px solid var(--border-color)",
+                }}
+              >
+                <span
+                  className="text-sm font-semibold"
+                  style={{ color: "var(--primary-color)" }}
+                >
+                  {post.author?.name?.charAt(0) || "A"}
                 </span>
               </div>
             )}
             <div>
-              <p className="text-sm font-medium text-gray-900">{post.author?.name}</p>
-              <p className="text-xs text-gray-500">Author</p>
+              <p
+                className="text-sm font-medium"
+                style={{ color: "var(--text-color)" }}
+              >
+                {post.author?.name}
+              </p>
+              <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                Author
+              </p>
             </div>
           </div>
         </div>
@@ -289,15 +385,24 @@ function BlogCard({ post }: { post: BlogPost }) {
 // ============ Categories Section ============
 function CategoriesSection({ categories }: { categories: CategoryType[] }) {
   const displayedCategories = categories.slice(0, 6);
-  
+
   return (
-    <div className="py-16 bg-gradient-to-r from-red-50 to-rose-50 rounded-3xl">
+    <div
+      className="py-16 rounded-3xl"
+      style={{ background: "var(--gradient-bg)" }}
+    >
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">
-            Explore by <span className="text-red-600">Categories</span>
+          <h2
+            className="text-3xl font-bold mb-3"
+            style={{ color: "var(--text-color)" }}
+          >
+            Explore by{" "}
+            <span style={{ color: "var(--primary-color)" }}>Categories</span>
           </h2>
-          <p className="text-gray-600">Find articles that match your interests</p>
+          <p style={{ color: "var(--text-muted)" }}>
+            Find articles that match your interests
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -305,20 +410,37 @@ function CategoriesSection({ categories }: { categories: CategoryType[] }) {
             <Link
               key={category._id}
               href={`/blog/category/${category.slug}`}
-              className="group bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 text-center hover:-translate-y-1"
+              className="group rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: "var(--card-bg)",
+                border: "1px solid var(--border-color)",
+                boxShadow: "var(--shadow-soft)",
+              }}
             >
-              <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition">
+              <div
+                className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center transition"
+                style={{ background: "rgba(79, 209, 165, 0.15)" }}
+              >
                 <span className="text-2xl">📁</span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-red-600">
+              <h3
+                className="text-lg font-semibold mb-2"
+                style={{ color: "var(--text-color)" }}
+              >
                 {category.name}
               </h3>
               {category.description && (
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                <p
+                  className="text-sm mb-3 line-clamp-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   {category.description}
                 </p>
               )}
-              <span className="text-sm text-red-600 font-medium">
+              <span
+                className="text-sm font-medium"
+                style={{ color: "var(--primary-color)" }}
+              >
                 {category.postCount || 0} articles
               </span>
             </Link>
@@ -329,18 +451,21 @@ function CategoriesSection({ categories }: { categories: CategoryType[] }) {
   );
 }
 
-// ============ Tags Cloud Component ============
+// ============ Tags Cloud ============
 function TagsCloud({ tags }: { tags: TagType[] }) {
   const popularTags = tags.slice(0, 12);
-  
+
   return (
-    <div className="py-16">
+    <div className="py-16" style={{ background: "var(--bg-color)" }}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">
-            Popular <span className="text-red-600">Tags</span>
+          <h2
+            className="text-3xl font-bold mb-3"
+            style={{ color: "var(--text-color)" }}
+          >
+            Popular <span style={{ color: "var(--primary-color)" }}>Tags</span>
           </h2>
-          <p className="text-gray-600">Discover content by topic</p>
+          <p style={{ color: "var(--text-muted)" }}>Discover content by topic</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-3">
@@ -350,12 +475,15 @@ function TagsCloud({ tags }: { tags: TagType[] }) {
               href={`/blog/tag/${tag.slug}`}
               className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105"
               style={{
-                backgroundColor: tag.color || '#FEE2E2',
-                color: '#991B1B'
+                background: "rgba(79, 209, 165, 0.15)",
+                color: "var(--primary-color)",
+                border: "1px solid var(--border-color)",
               }}
             >
               #{tag.name}
-              <span className="ml-1 text-xs opacity-75">({tag.postCount || 0})</span>
+              <span className="ml-1 text-xs opacity-75">
+                ({tag.postCount || 0})
+              </span>
             </Link>
           ))}
         </div>
@@ -367,31 +495,46 @@ function TagsCloud({ tags }: { tags: TagType[] }) {
 // ============ Newsletter Section ============
 function NewsletterSection() {
   return (
-    <div className="py-16 bg-gradient-to-r from-red-600 to-rose-600 rounded-3xl">
+    <div
+      className="py-16 rounded-3xl"
+      style={{ background: "var(--gradient-primary)" }}
+    >
       <div className="max-w-3xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold text-white mb-3">
+        <h2
+          className="text-3xl font-bold mb-3"
+          style={{ color: "var(--bg-color)" }}
+        >
           Stay in the Loop
         </h2>
-        <p className="text-red-100 mb-6">
+        <p className="mb-6" style={{ color: "var(--bg-soft)" }}>
           Get the latest posts delivered right to your inbox
         </p>
-        
+
         <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
           <input
             type="email"
             placeholder="Enter your email"
-            className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
+            className="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2"
+            style={{
+              background: "var(--bg-color)",
+              color: "var(--text-color)",
+              border: "1px solid var(--border-color)",
+            }}
             required
           />
           <button
             type="submit"
-            className="px-6 py-3 bg-white text-red-600 font-semibold rounded-lg hover:bg-red-50 transition"
+            className="px-6 py-3 font-semibold rounded-lg transition"
+            style={{
+              background: "var(--bg-color)",
+              color: "var(--primary-color)",
+            }}
           >
             Subscribe
           </button>
         </form>
-        
-        <p className="text-red-200 text-sm mt-4">
+
+        <p className="text-sm mt-4" style={{ color: "var(--bg-soft)" }}>
           No spam, unsubscribe anytime.
         </p>
       </div>
@@ -399,24 +542,18 @@ function NewsletterSection() {
   );
 }
 
-// ============ Main Page Component (SSG) ============
+// ============ Main Page ============
 export default async function HomePage() {
-  // Fetch data on the server
   await dbConnect();
-  
-  // Fetch featured posts
-  const featuredPosts = await Blog.find({ 
-    status: "published",
-    isFeatured: true 
-  })
+
+  const featuredPosts = await Blog.find({ status: "published", isFeatured: true })
     .populate("category", "name slug")
     .populate("tags", "name slug color")
     .populate("author", "name email avatar")
     .sort({ pinned: -1, publishedAt: -1 })
     .limit(4)
     .lean();
-  
-  // Fetch recent posts
+
   const recentPosts = await Blog.find({ status: "published" })
     .populate("category", "name slug")
     .populate("tags", "name slug color")
@@ -424,28 +561,17 @@ export default async function HomePage() {
     .sort({ publishedAt: -1 })
     .limit(9)
     .lean();
-  
-  // Fetch categories
-  const categories = await Category.find({})
-    .sort({ postCount: -1 })
-    .limit(6)
-    .lean();
-  
-  // Fetch tags
-  const tags = await Tag.find({})
-    .sort({ postCount: -1 })
-    .limit(12)
-    .lean();
-  
-  // Convert MongoDB documents to plain objects
+
+  const categories = await Category.find({}).sort({ postCount: -1 }).limit(6).lean();
+  const tags = await Tag.find({}).sort({ postCount: -1 }).limit(12).lean();
+
   const parsedFeaturedPosts = JSON.parse(JSON.stringify(featuredPosts));
   const parsedRecentPosts = JSON.parse(JSON.stringify(recentPosts));
   const parsedCategories = JSON.parse(JSON.stringify(categories));
   const parsedTags = JSON.parse(JSON.stringify(tags));
-  
+
   return (
-    <main className="min-h-screen bg-white">
-      {/* Hero Section with Featured Posts */}
+    <main className="min-h-screen" style={{ background: "var(--bg-color)" }}>
       {parsedFeaturedPosts.length > 0 && (
         <section className="py-12 px-6">
           <div className="max-w-7xl mx-auto">
@@ -453,22 +579,26 @@ export default async function HomePage() {
           </div>
         </section>
       )}
-      
-      {/* Recent Posts Section */}
+
       <section className="py-16 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-10">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900">
-                Latest <span className="text-red-600">Articles</span>
+              <h2
+                className="text-3xl font-bold"
+                style={{ color: "var(--text-color)" }}
+              >
+                Latest{" "}
+                <span style={{ color: "var(--primary-color)" }}>Articles</span>
               </h2>
-              <p className="text-gray-600 mt-2">
+              <p className="mt-2" style={{ color: "var(--text-muted)" }}>
                 Fresh content just for you
               </p>
             </div>
             <Link
               href="/blog"
-              className="text-red-600 font-semibold hover:text-red-700 transition flex items-center gap-1"
+              className="font-semibold transition flex items-center gap-1"
+              style={{ color: "var(--primary-color)" }}
             >
               View all
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -476,7 +606,7 @@ export default async function HomePage() {
               </svg>
             </Link>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {parsedRecentPosts.map((post: BlogPost) => (
               <BlogCard key={post._id} post={post} />
@@ -484,22 +614,19 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-      
-      {/* Categories Section */}
+
       {parsedCategories.length > 0 && (
         <section className="px-6">
           <CategoriesSection categories={parsedCategories} />
         </section>
       )}
-      
-      {/* Tags Cloud Section */}
+
       {parsedTags.length > 0 && (
         <section className="px-6">
           <TagsCloud tags={parsedTags} />
         </section>
       )}
-      
-      {/* Newsletter Section */}
+
       <section className="px-6 pb-16">
         <div className="max-w-7xl mx-auto">
           <NewsletterSection />
@@ -509,15 +636,8 @@ export default async function HomePage() {
   );
 }
 
-// Generate static paths for dynamic routes if needed
 export async function generateStaticParams() {
   await dbConnect();
-  
-  const posts = await Blog.find({ status: "published" })
-    .select("slug")
-    .lean();
-  
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  const posts = await Blog.find({ status: "published" }).select("slug").lean();
+  return posts.map((post) => ({ slug: post.slug }));
 }

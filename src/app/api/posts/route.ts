@@ -1,11 +1,13 @@
 // app/api/posts/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { Blog, Tag, Category } from "@/utils/models/Blog";
+import { Blog } from "@/utils/models/Blog";
 import { revalidatePath } from "next/cache";
 import dbConnect from "@/utils/db";
 import { Types } from "mongoose";
-import { User } from "@/utils/models/user.model";
+import { Category } from "@/utils/models/categories.model";
+import { Tag } from "@/utils/models/tags.model";
+import User from "@/utils/models/user.model";
 
 // Helper to get current user
 async function getCurrentUser() {
@@ -19,24 +21,25 @@ async function getCurrentUser() {
 }
 
 // GET /api/posts - Fetch posts with pagination (for listing)
+
 export async function GET(request: NextRequest) {
   try {
     await dbConnect();
-    
+
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
     const status = searchParams.get("status");
     const category = searchParams.get("category");
     const tag = searchParams.get("tag");
-    
+
     const query: any = {};
     if (status) query.status = status;
-    if (category) query.category = category;
-    if (tag) query.tags = tag;
-    
+    if (category) query.category = new Types.ObjectId(category);
+    if (tag) query.tags = new Types.ObjectId(tag);
+
     const skip = (page - 1) * limit;
-    
+
     const [posts, total] = await Promise.all([
       Blog.find(query)
         .populate("category", "name slug")
@@ -47,7 +50,7 @@ export async function GET(request: NextRequest) {
         .limit(limit),
       Blog.countDocuments(query),
     ]);
-    
+
     return NextResponse.json({
       success: true,
       data: posts,
@@ -58,10 +61,10 @@ export async function GET(request: NextRequest) {
         pages: Math.ceil(total / limit),
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching posts:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to fetch posts" },
+      { success: false, error: error.message || "Failed to fetch posts" },
       { status: 500 }
     );
   }
