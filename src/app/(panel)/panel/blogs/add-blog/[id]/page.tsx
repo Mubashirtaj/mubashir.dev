@@ -260,6 +260,8 @@ export default function AddEditBlogPage() {
   const params = useParams();
   const router = useRouter();
   const id = params?.id as string;
+  console.log(id);
+  
   const isEditMode = !!id;
   
   const [categories, setCategories] = useState<Category[]>([]);
@@ -348,7 +350,8 @@ export default function AddEditBlogPage() {
       setFetchingData(true);
       const response = await fetch(`/api/posts/${id}`);
       const data = await response.json();
-
+      console.log(data);
+      
       if (data.success) {
         const blog = data.data;
         setFormData({
@@ -415,7 +418,7 @@ export default function AddEditBlogPage() {
       const data = await response.json();
 
       if (data.success) {
-        router.push(`/panel/blogs/${data.data._id}`);
+        router.push(`/panel/blogs/add-blog/${data.data._id}`);
       } else {
         alert(data.error || "Failed to save blog post");
       }

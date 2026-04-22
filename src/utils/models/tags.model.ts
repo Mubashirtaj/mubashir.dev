@@ -32,8 +32,6 @@ const TagSchema = new Schema<ITag>(
 
 
 
-
-TagSchema.index({ slug: 1 });
 TagSchema.index({ postCount: -1 });
 export const Tag: Model<ITag> =
   mongoose.models.Tag ?? mongoose.model<ITag>("Tag", TagSchema);

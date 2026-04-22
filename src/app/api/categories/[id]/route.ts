@@ -2,16 +2,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import dbConnect from "@/utils/db";
-import { Category } from "@/utils/models/Blog";
 import { revalidatePath } from "next/cache";
 import mongoose from "mongoose";
+import User from "@/utils/models/user.model";
+import { Category } from "@/utils/models/categories.model";
 
 // Helper to check admin access
 async function isAdmin() {
   const session = await getServerSession();
   if (!session?.user?.email) return false;
   
-  const { User } = await import("@/utils/models/user.model");
   const user = await User.findOne({ email: session.user.email });
   return user?.role === "admin";
 }
@@ -29,10 +29,11 @@ function generateSlug(name: string): string {
 // GET /api/categories/[id] - Fetch single category
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: { params: Promise<{ id: string }> }) {
   try {
     await dbConnect();
+    
+    const params = await context.params;
     
     // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(params.id)) {
@@ -76,8 +77,8 @@ export async function GET(
 // PUT /api/categories/[id] - Update category
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: { params: Promise<{ id: string }> }) {
+  const params = await context.params;
   try {
     await dbConnect();
     
@@ -263,8 +264,8 @@ export async function PUT(
 // DELETE /api/categories/[id] - Delete category
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: { params: Promise<{ id: string }> }) {
+  const params = await context.params;
   try {
     await dbConnect();
     

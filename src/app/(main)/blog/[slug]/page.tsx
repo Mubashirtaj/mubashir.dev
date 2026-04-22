@@ -6,41 +6,74 @@ import dbConnect from "@/utils/db";
 import { Blog } from "@/utils/models/Blog";
 import { format } from "date-fns";
 
-interface BlogPostPageProps {
-  params: {
-    slug: string;
+interface Author {
+  _id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  image?: string;
+}
+
+interface Category {
+  _id: string;
+  name: string;
+  slug: string;
+}
+
+interface Tag {
+  _id: string;
+  name: string;
+  slug: string;
+  color?: string;
+}
+
+interface BlogPost {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  body: string;
+  coverImage?: string;
+  coverImageAlt?: string;
+  category: Category;
+  tags: Tag[];
+  author: Author;
+  publishedAt?: Date;
+  createdAt: Date;
+  readingStats?: {
+    readingTimeMinutes: number;
   };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   await dbConnect();
   const { slug } = await params;
-    console.log('Fetching blog post with slug:', slug);
-  const post = await Blog.findOne({ 
+  console.log('Fetching blog post with slug:', slug);
+  const post = (await Blog.findOne({ 
     slug: slug, 
     status: "published" 
   })
     .populate("category", "name slug")
     .populate("tags", "name slug color")
     .populate("author", "name email avatar")
-    .lean();
+    .lean()) as BlogPost | null;
   
   if (!post) {
-    // notFound();
+    notFound();
   }
   
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-red-50 via-rose-50 to-pink-50">
+      <div className="relative bg-linear-to-br from-red-50 via-rose-50 to-pink-50">
         <div className="max-w-4xl mx-auto px-6 py-16">
           {/* Category and Meta */}
           <div className="mb-6">
             <Link 
-              href={`/blog/category/${post.category?.slug}`}
+              href={`/blog/category/${post.category.slug}`}
               className="text-red-600 font-semibold hover:text-red-700"
             >
-              {post.category?.name}
+              {post.category.name}
             </Link>
             <div className="flex items-center gap-3 text-sm text-gray-500 mt-2">
               <span>{format(new Date(post.publishedAt || post.createdAt), 'MMMM dd, yyyy')}</span>
@@ -61,7 +94,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           
           {/* Author */}
           <div className="flex items-center gap-4">
-            {post.author?.image ? (
+            {post.author.image ? (
               <Image
                 src={post.author.image}
                 alt={post.author.name}
@@ -72,12 +105,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             ) : (
               <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                 <span className="text-red-600 text-lg font-semibold">
-                  {post.author?.name?.charAt(0) || 'A'}
+                  {post.author.name.charAt(0) || 'A'}
                 </span>
               </div>
             )}
             <div>
-              <p className="font-semibold text-gray-900">{post.author?.name}</p>
+              <p className="font-semibold text-gray-900">{post.author.name}</p>
               <p className="text-sm text-gray-500">Author</p>
             </div>
           </div>
@@ -86,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       
       {/* Cover Image */}
       {post.coverImage && (
-        <div className="relative w-full h-96 md:h-[500px] -mt-20 mb-12">
+        <div className="relative w-full h-96 md:h-125 -mt-20 mb-12">
           <Image
             src={post.coverImage}
             alt={post.coverImageAlt || post.title}
@@ -109,14 +142,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="mt-12 pt-8 border-t border-gray-200">
             <h3 className="text-lg font-semibold mb-4">Tags</h3>
             <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag: any) => (
+              {post.tags.map((tag: Tag) => (
                 <Link
                   key={tag._id}
                   href={`/blog/tag/${tag.slug}`}
                   className="px-3 py-1 rounded-full text-sm"
                   style={{
                     backgroundColor: tag.color || '#FEE2E2',
-                    color: '#ffff'
+                    color: '#ffffff'
                   }}
                 >
                   #{tag.name}

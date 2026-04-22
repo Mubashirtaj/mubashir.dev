@@ -2,15 +2,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import dbConnect from "@/utils/db";
-import { Tag } from "@/utils/models/Blog";
 import { revalidatePath } from "next/cache";
 import mongoose from "mongoose";
+import User from "@/utils/models/user.model";
+import { Tag } from "@/utils/models/tags.model";
 
 async function isAdmin() {
   const session = await getServerSession();
   if (!session?.user?.email) return false;
   
-  const { User } = await import("@/utils/models/user.model");
   const user = await User.findOne({ email: session.user.email });
   return user?.role === "admin";
 }
@@ -18,8 +18,8 @@ async function isAdmin() {
 // DELETE /api/tags/[id] - Delete a tag
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  context: { params: Promise<{ id: string }> }) {
+  const params = await context.params;
   try {
     await dbConnect();
     
