@@ -52,7 +52,7 @@ function HeroSection({ featuredPosts }: { featuredPosts: BlogPost[] }) {
   return (
     <div
       className="relative rounded-3xl overflow-hidden"
-      style={{ background: "var(--gradient-bg)" }}
+      
     >
       <div className="absolute inset-0 opacity-20">
         <div
@@ -456,7 +456,7 @@ function TagsCloud({ tags }: { tags: TagType[] }) {
   const popularTags = tags.slice(0, 12);
 
   return (
-    <div className="py-16" style={{ background: "var(--bg-color)" }}>
+    <div className="p-16 " style={{ background: "var(--bg-color)" }}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-10">
           <h2
@@ -571,7 +571,7 @@ export default async function HomePage() {
   const parsedTags = JSON.parse(JSON.stringify(tags));
 
   return (
-    <main className="min-h-screen" style={{ background: "var(--bg-color)" }}>
+    <main className="min-h-screen" >
       {parsedFeaturedPosts.length > 0 && (
         <section className="py-12 px-6">
           <div className="max-w-7xl mx-auto">

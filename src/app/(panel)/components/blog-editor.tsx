@@ -4,7 +4,7 @@ import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/js/plugins.pkgd.min.js";
-
+import imageCompression from "browser-image-compression";
 export default function BlogEditor({
   model,
   setModel,
@@ -13,26 +13,35 @@ export default function BlogEditor({
   setModel: (model: string) => void;
 }) {
   const uploadToAWS = async (file: File) => {
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        fileName: file.name,
-        fileType: file.type,
-      }),
-    });
+  // 1. Convert to WebP before upload
+  const compressedBlob = await imageCompression(file, {
+    fileType: "image/webp",
+    maxSizeMB: 1, // optional size limit
+    maxWidthOrHeight: 1920, // optional resize
+  });
 
-    const { uploadUrl, key } = await res.json();
+  // 2. Get presigned URL from API
+  const res = await fetch("/api/upload", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      fileName: file.name.replace(/\.[^.]+$/, "") + ".webp", // force .webp extension
+      fileType: "image/webp",
+    }),
+  });
 
-    await fetch(uploadUrl, {
-      method: "PUT",
-      headers: { "Content-Type": file.type },
-      body: file,
-    });
+  const { uploadUrl, key } = await res.json();
 
-    return `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${key}`;
-  };
+  // 3. Upload compressed WebP file
+  await fetch(uploadUrl, {
+    method: "PUT",
+    headers: { "Content-Type": "image/webp" },
+    body: compressedBlob,
+  });
 
+  // 4. Return public URL
+  return `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${key}`;
+};
   return (
     <div style={{ padding: 20 }}>
       <h2>Blog Editor</h2>

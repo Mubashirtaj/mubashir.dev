@@ -71,21 +71,26 @@ export async function GET(
 export async function POST(request: NextRequest) {
   try {
     await dbConnect();
-    
+
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     }
-    
-    const body = await request.json();
-    const { id, ...data } = body; // 'id' check karne ke liye nikal li
+
+    const data = await request.json();
 
     // Required fields check
     if (!data.title || !data.slug || !data.excerpt) {
       return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
     }
 
-    // Reading stats calculate karein (Wahi purana logic)
+    // Slug duplication check only
+    const existingPost = await Blog.findOne({ slug: data.slug });
+    if (existingPost) {
+      return NextResponse.json({ success: false, error: "Slug already exists" }, { status: 409 });
+    }
+
+    // Reading stats
     const wordCount = countWords(data.body || "");
     const readingStats = {
       wordCount,
@@ -94,80 +99,40 @@ export async function POST(request: NextRequest) {
       imageCount: (data.body?.match(/<img/g) || []).length,
     };
 
-    let post;
+    // Create new post
+    const post = await Blog.create({
+      ...data,
+      author: user._id,
+      bodyText: stripHtml(data.body || ""),
+      readingStats,
+      publishedAt: data.status === "published" ? new Date() : undefined,
+      lastEditedAt: new Date(),
+    });
 
-    if (id) {
-      // --- UPDATE LOGIC ---
-      console.log("Updating existing post:", id);
-      
-      // Check karein ki slug kisi aur post ka toh nahi hai
-      const slugConflict = await Blog.findOne({ slug: data.slug, _id: { $ne: id } });
-      if (slugConflict) {
-        return NextResponse.json({ success: false, error: "Slug already in use by another post" }, { status: 409 });
-      }
-
-      post = await Blog.findByIdAndUpdate(
-        id,
-        {
-          ...data,
-          bodyText: stripHtml(data.body || ""),
-          readingStats,
-          lastEditedAt: new Date(),
-          // Agar status abhi 'published' kiya hai toh date update karein
-          ...(data.status === "published" ? { publishedAt: new Date() } : {}),
-        },
-        { new: true, runValidators: true }
-      );
-
-      if (!post) {
-        return NextResponse.json({ success: false, error: "Post not found to update" }, { status: 404 });
-      }
-
-    } else {
-      // --- CREATE LOGIC ---
-      console.log("Creating new post");
-      
-      const existingPost = await Blog.findOne({ slug: data.slug });
-      if (existingPost) {
-        return NextResponse.json({ success: false, error: "Slug already exists" }, { status: 409 });
-      }
-
-      post = await Blog.create({
-        ...data,
-        author: user._id,
-        bodyText: stripHtml(data.body || ""),
-        readingStats,
-        publishedAt: data.status === "published" ? new Date() : undefined,
-        lastEditedAt: new Date(),
-      });
-
-      // Nayi post par Category/Tags count barhayein
-      if (data.category) {
-        await Category.findByIdAndUpdate(data.category, { $inc: { postCount: 1 } });
-      }
-      if (data.tags?.length > 0) {
-        await Tag.updateMany({ _id: { $in: data.tags } }, { $inc: { postCount: 1 } });
-      }
+    // Update category/tag counts
+    if (data.category) {
+      await Category.findByIdAndUpdate(data.category, { $inc: { postCount: 1 } });
+    }
+    if (data.tags?.length > 0) {
+      await Tag.updateMany({ _id: { $in: data.tags } }, { $inc: { postCount: 1 } });
     }
 
     // Revalidate paths
     revalidatePath("/blog");
     revalidatePath(`/blog/${post.slug}`);
 
-    // Populated data return karein
+    // Return populated post
     const populatedPost = await Blog.findById(post._id)
       .populate("category", "name slug")
       .populate("tags", "name slug color")
       .populate("author", "name email avatar");
 
-    return NextResponse.json({ 
-      success: true, 
-      message: id ? "Post updated successfully" : "Post created successfully",
-      data: populatedPost 
-    }, { status: id ? 200 : 201 });
-
+    return NextResponse.json(
+      { success: true, message: "Post created successfully", data: populatedPost },
+      { status: 201 }
+    );
   } catch (error: any) {
-    console.error("Error in Post/Update API:", error);
+    console.error("Error in Create Post API:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

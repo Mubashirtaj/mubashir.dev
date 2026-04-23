@@ -260,9 +260,8 @@ export default function AddEditBlogPage() {
   const params = useParams();
   const router = useRouter();
   const id = params?.id as string;
-  console.log(id);
-  
-  const isEditMode = !!id;
+
+  const isEditMode = id === "new" ? false : true;
   
   const [categories, setCategories] = useState<Category[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
@@ -406,9 +405,9 @@ export default function AddEditBlogPage() {
     setLoading(true);
 
     try {
-      const url = isEditMode ? `/api/posts/${id}` : "/api/posts";
+      const url = isEditMode ? `/api/posts/${id}` : "/api/posts/new";
       const method = isEditMode ? "PUT" : "POST";
-
+      
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
