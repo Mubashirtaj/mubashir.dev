@@ -14,17 +14,16 @@ export function HeroSection() {
   },
   
   {
-    id: 1,
-    title: "Is 2026 Web Development Still Worth It",
-    slug: "is-2026-web-development-still-worth-it-",
-    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png",
+    id: 2,
+    title: "How to Build Your First REST API with Node.js and TypeScript in 2026",
+    slug: "build-rest-api-nodejs-typescript-2026",
+    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/How+to+Build+Your+First+REST+API+with+Node.js+and+TypeScript+in+2026.webp",
   },
-  
   {
-    id: 1,
-    title: "Is 2026 Web Development Still Worth It",
-    slug: "is-2026-web-development-still-worth-it-",
-    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png",
+    id: 3,
+    title: "Why TypeScript Is No Longer Optional in 2026",
+    slug: "why-typescript-is-no-longer-optional-in-2026",
+    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/why-typescript-is-no-longer-optional-in-2026.webp",
   },
   
 ];

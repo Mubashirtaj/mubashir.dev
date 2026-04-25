@@ -6,46 +6,46 @@ const BlogSection = () => {
     const posts = [
         {
             id: 'article-1',
-            title: 'Is 2026 Web Development Still Worth It?',
-            summary: "Web development in 2026 has transformed with AI tooling, edge runtimes, and modern full-stack frameworks. But is it still worth learning or pursuing as a career? Here's the honest, data-backed breakdown.",
-            href: '/blog/is-2026-web-development-still-worth-it-',
-            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png',
-            publishedAt: '20 Jan 2027',
+            title: 'CSS in 2026 - What Actually Survived the Framework Wars',
+            summary: "From CSS Modules to Tailwind to zero-runtime libraries — the styling landscape has been chaotic. Here's what's actually standing in 2026 and what you should be writing today.",
+            href: '/blog/css-in-2026-what-actually-survived-the-framework-wars',
+            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/CSS+in+2026+-+What+Actually+Survived+the+Framework+Wars.webp',
+            publishedAt: '14 April 2026',
             author: { name: 'Mubashir Taj', href: '#' },
             tags: [
-                { name: 'career advice', href: '#' },
-                { name: 'fullstack', href: '#' },
-                { name: 'AI tooling', href: '#' },
+                { name: 'web design', href: '/tag/web-design' },
+                { name: 'tailwind', href: '/tag/tailwind' },
+                { name: 'css', href: '/tag/css' },
             ],
         },
        
         {
-            id: 'article-1',
-            title: 'Is 2026 Web Development Still Worth It?',
-            summary: "Web development in 2026 has transformed with AI tooling, edge runtimes, and modern full-stack frameworks. But is it still worth learning or pursuing as a career? Here's the honest, data-backed breakdown.",
-            href: '/blog/is-2026-web-development-still-worth-it-',
-            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png',
-            publishedAt: '20 Jan 2027',
+            id: 'article-2',
+            title: 'Git Workflows Every Developer Should Know in 2026',
+            summary: "Git is the one tool every developer uses every single day — yet most people only know the basics. Here are the workflows, commands, and habits that will make you faster, safer, and more collaborative in 2026.",
+            href: '/blog/git-workflows-every-developer-should-know-in-2026',
+            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Git+Workflows+Every+Developer+Should+Know+in+2026.webp',
+            publishedAt: '14 April 2026',
             author: { name: 'Mubashir Taj', href: '#' },
             tags: [
-                { name: 'career advice', href: '#' },
-                { name: 'fullstack', href: '#' },
-                { name: 'AI tooling', href: '#' },
+                { name: 'github', href: '/tag/github' },
+                { name: 'git', href: '/tag/git' },
+                { name: 'version control', href: '/tag/version-control' },
             ],
         },
        
         {
-            id: 'article-1',
-            title: 'Is 2026 Web Development Still Worth It?',
-            summary: "Web development in 2026 has transformed with AI tooling, edge runtimes, and modern full-stack frameworks. But is it still worth learning or pursuing as a career? Here's the honest, data-backed breakdown.",
-            href: '/blog/is-2026-web-development-still-worth-it-',
-            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png',
-            publishedAt: '20 Jan 2027',
+            id: 'article-3',
+            title: 'How to Build Your First REST API with Node.js and TypeScript in 2026',
+            summary: "Building a REST API from scratch is still one of the most valuable skills a web developer can have. This step-by-step guide walks you through setting up a production-ready Node.js API with TypeScript, Express, and MongoDB in 2026.",
+            href: '/blog/build-rest-api-nodejs-typescript-2026',
+            thumbnailUrl: 'https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/How+to+Build+Your+First+REST+API+with+Node.js+and+TypeScript+in+2026.webp',
+            publishedAt: '14 April 2026',
             author: { name: 'Mubashir Taj', href: '#' },
             tags: [
-                { name: 'career advice', href: '#' },
-                { name: 'fullstack', href: '#' },
-                { name: 'AI tooling', href: '#' },
+                { name: 'rest api', href: '/tag/rest-api' },
+                { name: 'nodejs', href: '/tag/nodejs' },
+                { name: 'backend', href: '/tag/backend' },
             ],
         },
        
@@ -139,7 +139,7 @@ const BlogSection = () => {
                 {/* View All */}
                 <div className="mt-10 flex justify-center md:mt-12">
                     <Link
-                        href="#"
+                        href="/blogs"
                         className="inline-flex items-center gap-2 rounded-lg border border-[var(--primary-color)] px-5 py-2.5 text-sm font-semibold text-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white transition-all duration-150"
                     >
                         View all posts
