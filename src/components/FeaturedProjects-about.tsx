@@ -4,18 +4,18 @@ import Image from "next/image";
 
 const projects = [
   {
-    title: "Real-time LMS Platform",
+    title: "Real-Time Engineering",
     description:
-      "Built real-time LMS dashboards with live analytics, role-based access and notifications.",
-    image: "/projects/lms.png",
-    tags: ["Next.js", "AWS", "WebSockets"],
+      "Architecting low-latency systems: From P2P WebRTC streaming to high-frequency trading dashboards with 5+ years of expertise.",
+    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/realtime-banner-image.webp",
+    tags: ["WebSockets", "WebRTC", "Real-time Systems","Low Latency"],
   },
   {
-    title: "Secure Payment Gateway",
+    title: "Logistics & Port Clearance ERP",
     description:
-      "Developed secure payment processing system with fraud detection and encryption layers.",
-    image: "/projects/payment.png",
-    tags: ["Node.js", "Stripe", "JWT"],
+      "A multi-tenant, enterprise-grade system featuring database partitioning and automated job tracking for large-scale port operations.",
+    image: "https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/logistic-banner-image.webp",
+    tags: ["Database Scaling", "Nest.js", "postgreSQL"],
   },
 ];
 

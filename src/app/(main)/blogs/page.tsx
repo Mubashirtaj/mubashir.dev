@@ -499,7 +499,7 @@ function ArticleCard({ post }: { post: BlogPost }) {
         background: "var(--card-bg)",
         border: "1px solid var(--border-color)",
       }}
-    >icon
+    >
       <div className="relative h-[164px] flex-shrink-0 flex items-center justify-center"
         style={{ background: "linear-gradient(135deg,#044a3a,#022c29)" }}
       >

@@ -4,22 +4,26 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
 import {
+  IconBroadcast,
   IconClipboardCopy,
   IconFileBroken,
+  IconRocket,
+  IconShieldCheck,
   IconSignature,
   IconTableColumn,
+  IconTruckDelivery,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import { Particles } from "./ui/particles2";
+import { hr } from "date-fns/locale";
 
 export function BentoGridSecondDemo() {
   return (
     <div className="relative min-h-screen overflow-hidden ">
-
       {/* PARTICLES BACKGROUND */}
       <Particles
         className="absolute inset-0 z-0 pointer-events-none"
-        quantity={800}
+        quantity={100}
         ease={80}
         color={"text-[var(--primary-color)]"}
         refresh
@@ -27,6 +31,7 @@ export function BentoGridSecondDemo() {
 
       {/* CONTENT */}
       <div className="relative z-10 py-10">
+      <h2 className="text-3xl font-bold text-center mb-10">Featured Projects</h2>
 
         <BentoGrid className="max-w-6xl mx-auto gap-4 md:auto-rows-auto">
 
@@ -37,6 +42,7 @@ export function BentoGridSecondDemo() {
               description={item.description}
               header={item.header}
               icon={item.icon}
+              href={item.href}
               className={cn(
                 "p-4 rounded-2xl border border-white/10",
                 "bg-[var(--secondary-color)]/20 backdrop-blur-md",
@@ -59,69 +65,75 @@ export function BentoGridSecondDemo() {
 
 const items = [
   {
-    title: "The Dawn of Innovation",
+    title: "AI-Powered Compliance LMS",
     description:
-      "Explore the birth of groundbreaking ideas and inventions.",
+      "A TSLR-approved defensive driving platform featuring AI face verification, automated proctoring, and high-security certification logic.",
     header: (
       <Image
-        src="https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png"
-        alt="Innovation"
+        src="https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/lms-project-image.webp"
+        alt="Secure LMS with Face Detection"
         width={800}
         height={500}
         className="w-full h-full object-cover rounded-xl"
       />
     ),
     className: "md:col-span-2",
-    icon: <IconClipboardCopy className="h-5 w-5 text-[var(--primary-color)]" />,
+    icon: <IconShieldCheck className="h-5 w-5 text-[var(--primary-color)]" />,
+    href: "/blog/tdlr-approved-defensive-driving-lms-ai-face-verification",
   },
 
   {
-    title: "The Digital Revolution",
-    description: "Dive into the transformative power of technology.",
+    title: "Real-Time Engineering",
+    description: "Architecting low-latency systems: From P2P WebRTC streaming to high-frequency trading dashboards with 5+ years of expertise.",
     header: (
       <Image
-        src="https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png"
-        alt="Digital"
+        src="https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/realtime-banner-image.webp"
+        alt="Real-time Application Development"
         width={800}
         height={500}
         className="w-full h-full object-cover rounded-xl"
       />
     ),
     className: "md:col-span-1",
-    icon: <IconFileBroken className="h-5 w-5 text-[var(--primary-color)]" />,
+    icon: <IconBroadcast className="h-5 w-5 text-[var(--primary-color)]" />,
+     href: "/blog/mastering-the-real-time-web-scalable-websockets-webrtc-solutions",
   },
 
   {
-    title: "The Art of Design",
+    title: "Logistics & Port Clearance ERP",
     description:
-      "Discover the beauty of thoughtful and functional design.",
+      "A multi-tenant, enterprise-grade system featuring database partitioning and automated job tracking for large-scale port operations.",
     header: (
       <Image
-        src="https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png"
-        alt="Design"
+        src="https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/logistic-banner-image.webp"
+        alt="Logistics ERP System"
         width={800}
         height={500}
         className="w-full h-full object-cover rounded-xl"
       />
     ),
     className: "md:col-span-1",
-    icon: <IconSignature className="h-5 w-5 text-[var(--primary-color)]" />,
+    icon: <IconTruckDelivery className="h-5 w-5 text-[var(--primary-color)]" />,
+     href: "/blog/multi-tenant-logistics-port-clearance-system",
+   
   },
 
   {
-    title: "The Power of Communication",
+    title: "Full-Scale SaaS Engineering",
     description:
-      "Understand the impact of effective communication in our lives.",
+      "Crafting end-to-end SaaS solutions from concept to production. Specialized in multi-tenant architectures, integrated billing, and high-performance cloud systems.",
     header: (
       <Image
-        src="https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/Gemini_Generated_Image_qbqk0qbqk0qbqk0q.png"
-        alt="Communication"
+        src="https://mubashir-blog-assets.s3.ap-south-1.amazonaws.com/covers/multiple-saas-image.webp"
+        alt="SaaS Portfolio Showcase"
         width={800}
         height={500}
         className="w-full h-full object-cover rounded-xl"
       />
     ),
     className: "md:col-span-2",
-    icon: <IconTableColumn className="h-5 w-5 text-[var(--primary-color)]" />,
+    icon: <IconRocket className="h-5 w-5 text-[var(--primary-color)]" />,
+     href: "/blog/full-stack-saas-product-engineering",
+
   },
 ];

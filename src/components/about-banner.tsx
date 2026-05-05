@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const AboutBanner = () => {
@@ -9,8 +10,8 @@ const AboutBanner = () => {
                 <p className='py-3'>I'm Full Stack Developer creating high-performance web applications with modern technologies.</p>
                <div className='flex flex-row gap-2'>
 
-                <button className='bg-[var(--bg-color)] text-white px-4 py-2 rounded'>Explore project</button>
-                <button className='border border-[var(--bg-color)] text-[var(--bg-color)] px-4 py-2 rounded'>Read The Blog</button>
+                <button className='bg-[var(--bg-color)] text-white px-4 py-2 rounded'><Link href="/">Explore project</Link></button>
+                <button className='border border-[var(--bg-color)] text-[var(--bg-color)] px-4 py-2 rounded'><Link href="/blogs">Read The Blog</Link></button>
 
                </div>
                 </div>

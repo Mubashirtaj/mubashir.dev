@@ -7,6 +7,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 import React, { useRef, useState } from "react";
@@ -246,7 +247,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden  flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium  transition duration-200 lg:flex lg:space-x-2",
+        "absolute inset-0 hidden hover:text-(--text-color) flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium  transition duration-200 lg:flex lg:space-x-2",
         className,
       )}
     >
@@ -362,13 +363,13 @@ export const NavbarLogo = () => {
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-(--text-color)"
     >
-      <img
-        src="https://assets.aceternity.com/logo-dark.png"
-        alt="logo"
-        width={30}
+      <Image
+        src="/logo.png"
+        alt="Mubashir Taj Logo"
+        width={100}
         height={30}
       />
-      <span className="font-medium text-black dark:text-white">Startup</span>
+      {/* <span className="font-medium text-black dark:text-white">Startup</span> */}
     </a>
   );
 };

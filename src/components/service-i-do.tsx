@@ -133,7 +133,7 @@ export const ServiceIDo = () => {
       </div>
       <Particles
         className="absolute inset-0 z-0"
-        quantity={1000}
+        quantity={100}
         ease={80}
        color={'var(--primary-color)'}
         refresh
